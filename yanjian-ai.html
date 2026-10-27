@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>言简 AI｜智能会议纪要工具产品作业报告（KANO + 用户画像 + HMW + 竞品五层分析）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", "PingFang SC", sans-serif;
+        }
+        html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+        body {
+            background-color: #f5f7fa;
+            color: #222;
+            line-height: 1.7;
+        }
+        /* ===== 页头：蓝色主色，对齐参考模板 ===== */
+        header.hero {
+            background: #2563eb;
+            color: white;
+            padding: 30px 40px 26px;
+            text-align: center;
+        }
+        header.hero h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+        header.hero p.hero-sub {
+            opacity: 0.92;
+            font-size: 15.5px;
+            max-width: 1080px;
+            margin: 0 auto 12px;
+        }
+        header.hero p.hero-keywords {
+            font-size: 13.5px;
+            opacity: 0.85;
+            letter-spacing: 0.04em;
+        }
+        header.hero .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        header.hero .hero-meta span {
+            background: rgba(255,255,255,0.16);
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 20px;
+            padding: 3px 14px;
+            font-size: 12.5px;
+        }
+        /* ===== 粘性导航 ===== */
+        .nav-bar {
+            background: #fff;
+            box-shadow: 0 2px 8px #00000015;
+            padding: 12px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            text-align: center;
+        }
+        .nav-bar a {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 6px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 6px;
+            transition: 0.2s;
+            font-size: 14.5px;
+        }
+        .nav-bar a:hover, .nav-bar a.active {
+            background: #2563eb;
+            color: white;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 30px;
+        }
+        /* ===== 章节白卡 ===== */
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            border-left: 5px solid #2563eb;
+            padding-left: 14px;
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #1e3a8a;
+        }
+        .section h3 {
+            margin: 24px 0 12px;
+            color: #1d4ed8;
+            font-size: 18px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .section h4 {
+            margin: 16px 0 10px;
+            color: #334155;
+            font-size: 16px;
+        }
+        .section p { margin: 8px 0; font-size: 14.5px; }
+        .section ul, .section ol { margin: 8px 0 8px 22px; font-size: 14.5px; }
+        .section li { margin: 6px 0; }
+        sup a { color: #2563eb; text-decoration: none; font-size: 11px; }
+        .mono { font-family: Consolas, "Courier New", monospace; font-size: 13px; background: #f1f5f9; border-radius: 4px; padding: 1px 6px; }
+        /* ===== 表格 ===== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        table th {
+            background: #eff6ff;
+            font-weight: bold;
+            color: #1e3a8a;
+            text-align: center;
+            white-space: nowrap;
+        }
+        table td.num, table th.num { text-align: center; }
+        table caption {
+            caption-side: top;
+            text-align: left;
+            font-weight: bold;
+            color: #334155;
+            padding: 6px 0;
+            font-size: 14px;
+        }
+        figcaption, .tbl-note {
+            font-size: 12.5px;
+            color: #64748b;
+            margin: 6px 0 4px;
+            line-height: 1.6;
+        }
+        /* ===== 参考资料列表 ===== */
+        ol.ref-list {
+            padding-left: 22px;
+            margin: 12px 0;
+        }
+        ol.ref-list li {
+            font-size: 13.5px;
+            color: #475569;
+            line-height: 1.9;
+            margin-bottom: 6px;
+            scroll-margin-top: 76px;
+        }
+        ol.ref-list li:target {
+            background: #eff6ff;
+            border-radius: 4px;
+            padding: 2px 6px;
+        }
+        /* ===== 图表容器 ===== */
+        .chart-box {
+            background: #f8fafc;
+            border: 1px dashed #94a3b8;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            overflow-x: auto;
+        }
+        .chart-box .chart-title { font-weight: bold; font-size: 14px; color: #334155; margin-bottom: 8px; text-align: center; }
+        .mermaid { width: 100%; overflow: auto; text-align: center; }
+        /* ===== 标签 ===== */
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            color: white;
+            margin: 2px;
+            white-space: nowrap;
+        }
+        .tag-p0 {background: #dc2626;}
+        .tag-p1 {background: #ea580c;}
+        .tag-p2 {background: #64748b;}
+        .tag-m {background:#0284c7;}
+        .tag-o {background:#059669;}
+        .tag-a {background:#d97706;}
+        .tag-i {background:#94a3b8;}
+        .tag-neutral {background:#475569;}
+        .tag-blue {background:#2563eb;}
+        /* ===== 图层卡片（框架层 / 表现层等） ===== */
+        .layer-card {
+            background: #f8fafc;
+            border-left: 4px solid #2563eb;
+            padding: 14px 20px;
+            margin: 12px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .layer-card h5 {
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .layer-card ul {
+            padding-left: 20px;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+        .layer-card p { font-size: 14px; }
+        /* ===== 提示框 ===== */
+        .callout {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-left: 4px solid #2563eb;
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            margin: 14px 0;
+            font-size: 14px;
+        }
+        .callout .callout-label { font-weight: bold; color: #1d4ed8; margin-bottom: 4px; display: block; }
+        .callout.warn { background: #fffbeb; border-color: #fde68a; border-left-color: #d97706; }
+        .callout.warn .callout-label { color: #b45309; }
+        .callout.key { background: #f0fdf4; border-color: #bbf7d0; border-left-color: #059669; }
+        .callout.key .callout-label { color: #047857; }
+        /* ===== 指标卡 ===== */
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .metric {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        .metric .metric-label { font-size: 13px; color: #64748b; }
+        .metric .metric-value { font-size: 24px; font-weight: bold; color: #1d4ed8; margin: 4px 0; }
+        .metric .metric-note { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+        /* ===== 结论行卡 ===== */
+        .row-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px 18px;
+            margin: 10px 0;
+            background: #fafcff;
+        }
+        .row-item .row-title { font-weight: bold; color: #1e3a8a; font-size: 15px; margin-bottom: 6px; }
+        .row-item .row-body { font-size: 14px; color: #334155; }
+        .row-item .row-meta { font-size: 12.5px; color: #94a3b8; margin-top: 6px; }
+        /* ===== 用户画像卡 ===== */
+        .persona {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #fafcff;
+            padding: 20px 24px;
+            margin: 14px 0;
+        }
+        .persona .persona-head {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 12px;
+        }
+        .persona .avatar {
+            flex: 0 0 auto;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: #2563eb;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            font-weight: bold;
+        }
+        .persona .persona-name { font-size: 15.5px; font-weight: bold; }
+        .persona .persona-meta { font-size: 12.5px; color: #64748b; margin-top: 2px; }
+        .persona dl { display: grid; gap: 8px; margin: 10px 0; }
+        .persona .fact { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 10px; }
+        .persona dt { font-size: 13.5px; font-weight: bold; color: #1d4ed8; }
+        .persona dd { font-size: 14px; color: #334155; }
+        .persona .persona-quote { border-left: 3px solid #2563eb; padding-left: 12px; margin: 10px 0; color: #1e293b; font-size: 14px; }
+        /* ===== 核心链路 ===== */
+        .chain-flow {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr) ;
+            gap: 6px;
+            align-items: stretch;
+            margin: 16px 0;
+        }
+        .chain-step {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 10px;
+            text-align: center;
+            position: relative;
+        }
+        .chain-step.key { border: 2px solid #2563eb; background: #eff6ff; }
+        .chain-step .chain-no { font-size: 12px; color: #2563eb; font-weight: bold; letter-spacing: 0.1em; }
+        .chain-step .chain-name { font-weight: bold; font-size: 14.5px; color: #1e293b; margin: 4px 0; }
+        .chain-step .chain-desc { font-size: 12.5px; color: #64748b; line-height: 1.6; }
+        .chain-step .chain-tag { margin-top: 8px; font-size: 11.5px; color: #1d4ed8; background: #dbeafe; border-radius: 12px; display: inline-block; padding: 1px 8px; }
+        .chain-loop { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 10px 14px; font-size: 13.5px; color: #14532d; }
+        /* ===== HMW 五步 ===== */
+        .hmw-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 14px 0; }
+        .hmw-step {
+            border: 1px solid #dbeafe;
+            border-radius: 10px;
+            background: #eff6ff;
+            padding: 12px 8px;
+            text-align: center;
+        }
+        .hmw-step .step-no { font-size: 12px; font-weight: bold; color: #2563eb; letter-spacing: 0.08em; }
+        .hmw-step .step-label { font-weight: bold; font-size: 14.5px; color: #1e293b; margin: 4px 0 2px; }
+        .hmw-step .step-desc { font-size: 12px; color: #64748b; line-height: 1.5; }
+        .hmw-box { border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 22px; margin: 14px 0; background: #fff; }
+        .hmw-box .hmw-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-bottom: 10px; border-bottom: 1px dashed #cbd5e1; margin-bottom: 12px; }
+        .hmw-box .hmw-id { background: #2563eb; color: #fff; border-radius: 8px; padding: 2px 12px; font-weight: bold; font-size: 14px; }
+        .hmw-box .hmw-title { font-weight: bold; color: #1e3a8a; font-size: 15px; }
+        .pov { background: #f8fafc; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 14px; }
+        /* ===== 定性 / 定量方法卡 ===== */
+        .method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+        .method-card { border-radius: 12px; padding: 18px 20px; border: 1px solid #e2e8f0; background: #fafcff; }
+        .method-card.qual { border-top: 4px solid #059669; }
+        .method-card.quant { border-top: 4px solid #d97706; }
+        .method-card h4 { margin-top: 0; }
+        .method-card .method-tag { font-size: 12px; color: #fff; border-radius: 6px; padding: 2px 10px; margin-right: 6px; }
+        .method-card.qual .method-tag { background: #059669; }
+        .method-card.quant .method-tag { background: #d97706; }
+        .method-card ul { padding-left: 18px; font-size: 13.5px; line-height: 1.9; }
+        /* ===== 打分条 ===== */
+        .score-cell { min-width: 130px; }
+        .score-bar { background: #e2e8f0; border-radius: 6px; height: 12px; position: relative; overflow: hidden; }
+        .score-bar i { display: block; height: 100%; background: #2563eb; border-radius: 6px; }
+        .score-num { font-size: 12.5px; color: #475569; text-align: center; margin-top: 2px; }
+        /* ===== 竞品小节标记 ===== */
+        .comp-head {
+            display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+            background: linear-gradient(90deg, #eff6ff, #fff);
+            border-left: 5px solid #2563eb;
+            padding: 10px 16px;
+            border-radius: 0 10px 10px 0;
+            margin: 26px 0 6px;
+        }
+        .comp-head .comp-no { background: #2563eb; color: #fff; border-radius: 8px; padding: 2px 12px; font-weight: bold; font-size: 14px; }
+        .comp-head .comp-name { font-weight: bold; font-size: 16.5px; color: #1e3a8a; }
+        .comp-head .comp-type { font-size: 12.5px; color: #475569; }
+        .layer-title {
+            font-size: 15px; font-weight: bold; color: #fff; background: #3b82f6;
+            display: inline-block; border-radius: 6px; padding: 2px 14px; margin: 16px 0 4px;
+        }
+        /* ===== 页脚 ===== */
+        footer.sources {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 32px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        footer.sources h2 { border-left: 5px solid #2563eb; padding-left: 14px; font-size: 20px; color: #1e3a8a; margin-bottom: 14px; }
+        footer.sources ol { margin-left: 22px; font-size: 13.5px; color: #334155; }
+        footer.sources li { margin: 8px 0; line-height: 1.7; }
+        footer.sources a { color: #2563eb; word-break: break-all; }
+        .colophon { text-align: center; color: #94a3b8; font-size: 12.5px; padding: 0 0 30px; }
+        /* ===== 响应式 ===== */
+        @media (max-width: 900px) {
+            .chain-flow { grid-template-columns: 1fr; }
+            .hmw-steps { grid-template-columns: repeat(2, 1fr); }
+            .method-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            header.hero { padding: 20px 16px; }
+            header.hero h1 { font-size: 21px; }
+            header.hero p.hero-sub { font-size: 13px; }
+            .nav-bar { padding: 8px 10px; position: static; }
+            .nav-bar a { padding: 6px 10px; margin: 3px 2px; font-size: 13px; }
+            .container { max-width: 100%; margin: 14px auto; padding: 0 12px; }
+            .section { padding: 18px 14px; }
+            .section h2 { font-size: 19px; }
+            .section h3 { font-size: 16px; }
+            .section p { font-size: 14px; }
+            table { font-size: 12px; }
+            table th, table td { padding: 6px 5px; }
+            .persona .fact { grid-template-columns: 1fr; gap: 2px; }
+            table th { white-space: normal; }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: "default",
+            flowchart: { useMaxWidth: true },
+            quadrantChart: { chartWidth: 620, chartHeight: 620 },
+            securityLevel: 'loose'
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            mermaid.run({ querySelector: '.mermaid' });
+        });
+    </script>
+</head>
+<body>
+
+<header class="hero">
+    <h1>言简 AI：面向会议密集型团队的智能会议纪要工具</h1>
+    <p class="hero-sub">从 5 项需求到一条可落地的核心业务链：用 Kano 模型判断「哪些需求决定满意」与「哪些需求决定不流失」，用四象限定位与用户画像交叉验证，再用 HMW 模型把结论变成动作；最后以五层模型对三款竞品做完整的定性与定量拆解，收口差异化策略。</p>
+    <p class="hero-keywords">用户研究与画像 ｜ KANO 需求模型 ｜ HMW 五步法 ｜ 竞品五层模型分析（定性 + 定量）｜ 产品核心链路</p>
+    <div class="hero-meta">
+        <span>数据来源：12 位受访者 Kano 问卷 · 120 个有效答案</span>
+        <span>用户画像：3 类人群</span>
+        <span>竞品拆解：3 款 · 五层模型</span>
+        <span>报告日期：2026-10-26</span>
+        <span>版本：v3.0</span>
+    </div>
+</header>
+
+<nav class="nav-bar" aria-label="报告章节导航">
+    <a href="#intro">一、项目简介</a>
+    <a href="#kano">二、KANO 需求分析</a>
+    <a href="#research">三、用户画像</a>
+    <a href="#link">四、产品核心链路</a>
+    <a href="#hmw">五、HMW 优化方案</a>
+    <a href="#competitor">六、竞品五层分析</a>
+    <a href="#conclusion">结语</a>
+    <a href="#appendix">附录 A</a>
+    <a href="#references">参考资料</a>
+</nav>
+
+<div class="container">
+
+<!-- ==================== 一、项目简介与产品定位 ==================== -->
+<section id="intro" class="section">
+    <h2>一、项目简介与产品定位</h2>
+
+    <h3>1.1 产品名称</h3>
+    <p><strong>言简 AI</strong> —— 面向会议密集型团队的智能会议纪要助手（「言简」取自「言简意赅」，寓意把一场 60 分钟的会议，压缩成 3 分钟就能读完、并且能直接执行的结论）。</p>
+    <p>一句话定义：<strong>把「会后整理纪要」这件隐性成本极高的事，从人工劳动变成系统自动产出，而且产出的是可验证、可追踪的结论，而不只是一份逐字稿。</strong></p>
+
+    <h3>1.2 目标用户</h3>
+    <p>按「会议密度」与「协作半径」两个维度，把目标用户划分为三类人群；占比来自 12 位受访者的人群构成（模拟样本）。</p>
+    <ul>
+        <li><strong>会议密集的产品 / 项目负责人（核心人群，约 50%）：</strong>每周 8 场以上会议，会后必须产出纪要并盯决议落地——既要「记得全」，也要「跟得住」，是纪要工具的核心使用者。</li>
+        <li><strong>跨部门信息对齐者（约 30%）：</strong>经常缺席会议或只参加部分场次，依赖纪要补齐上下文——最怕的不是纪要出得晚，而是纪要与事实不一致。</li>
+        <li><strong>跨国 / 远程协作团队（约 20%）：</strong>多语种、多时区协作，纪要需要跨语言直接可用——对翻译有需求，但更在意「跨语言之后结论是否仍然准确」。</li>
+    </ul>
+
+    <h3>1.3 核心定位</h3>
+    <p>区别于市面上「录音 → 转文字 → 人工整理」的传统方案，言简 AI 以<strong>「会议结束即产出可验证、可追踪的结论」</strong>为唯一入口，覆盖 <span class="mono">录音接入 → 高精度转写 → 说话人分离 → 决议提取 → 任务分发与追踪</span> 的会议全闭环，把会后整理纪要的隐性成本降到接近零。</p>
+    <div class="callout">
+        <span class="callout-label">定位取舍</span>
+        不做「什么都能记」的通用记录器，而是做<strong>「结论准确 + 任务可追」</strong>的决策助手。这意味着在产品上主动放弃一部分能力（例如会议情绪分析、实时同传），把资源集中在「转写可信」与「决议落地」两件事上——这一取舍由后文的 Kano 数据支撑，而非主观判断。
+    </div>
+
+    <h3>1.4 核心差异化壁垒</h3>
+    <ul>
+        <li><strong>功能壁垒：</strong>把价值前置到「决议提取 + 任务分发」，覆盖传统转写工具触达不到的「会开到落地」环节——竞品普遍停在「产出一份纪要」，言简 AI 的交付物是「一条被认领的任务」。（对应 R2 / R3）</li>
+        <li><strong>数据壁垒：</strong>用户对转写的修正、对决议的采纳与驳回，会沉淀为团队专属的领域词库（人名、项目代号、专有名词），反哺识别精度与个性化推荐——用得越久，错得越少。（对应 R1 / R4）</li>
+        <li><strong>体验壁垒：</strong>单场会议 3 分钟内产出结构化纪要，每条结论可一键回溯到原始录音位置，把工具从「记录器」升级为「团队协作的记忆中枢」。（对应 R1 / R2）</li>
+        <li><strong>商业壁垒：</strong>按会议时长与席位分层付费——免费基础版（转写 + 纪要）／团队全功能（决议追踪 + 协作工具打通）／企业私有化（本地部署 + 定制词库）。</li>
+    </ul>
+</section>
+
+<!-- ==================== 二、KANO模型需求分析 ==================== -->
+<section id="kano" class="section">
+    <h2>二、KANO 需求优先级（5 项需求，按属性与复合分排序）</h2>
+
+    <h3>2.1 研究设计与数据说明</h3>
+    <p>本报告面向 AI 智能会议纪要工具从 0 到 1 的需求决策。研究分三步：先以<strong>竞品功能拆解 + 用户访谈 + 公开行业资料</strong>三条线收敛出 5 项需求；再用 Kano 问卷（每项需求设正向、反向两题）对 12 位目标用户做属性判定，得到 A/O/M/I/R 分布与 Better–Worse 系数；最后把系数映射到四象限中定位，据此排出优先级、梳理核心业务链，并对诊断出的短板用 HMW 模型设计优化方案。</p>
+
+    <div class="callout warn">
+        <span class="callout-label">数据说明（务必先读）</span>
+        本报告为产品作业产出。<strong>Kano 问卷数据为按真实调研流程生成的模拟样本</strong>——12 位受访者 × 5 项需求 × 正向/反向两题 = 120 个答案，用于完整演示 Kano 的评分口径、属性判定、Better–Worse 计算与四象限定位方法，<strong>不代表真实用户分布</strong>。问卷题项、Kano 评价矩阵与计算公式均可直接复用于真实调研。文中引用的行业现状数据来自公开资料，已在文末逐条标注来源，其中部分为厂商自述数据，仅供参考。
+    </div>
+
+    <div class="metrics">
+        <div class="metric">
+            <div class="metric-label">需求池收敛结果</div>
+            <div class="metric-value">5 项</div>
+            <div class="metric-note">R1–R5，覆盖记录、生成、流转、复用四类场景</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">问卷有效样本</div>
+            <div class="metric-value">12 人</div>
+            <div class="metric-note">每人 5 项 × 正向/反向两题，共 120 个答案</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">Kano 属性命中</div>
+            <div class="metric-value">4 / 4 类</div>
+            <div class="metric-note">期望 2 项 · 必备 1 项 · 魅力 1 项 · 无差异 1 项</div>
+        </div>
+        <div class="metric">
+            <div class="metric-label">HMW 优化主题</div>
+            <div class="metric-value">2 个</div>
+            <div class="metric-note">R1 转写可信度 · R2+R3 决议到执行闭环</div>
+        </div>
+    </div>
+
+    <h3>2.2 需求收集：从三条线索收敛出 5 项需求</h3>
+    <p>需求收集并行三条线索：<strong>竞品功能拆解</strong>（飞书妙记、通义听悟、Otter.ai 等主流工具的能力矩阵，完整拆解见第六章）、<strong>12 位目标用户的一对一访谈</strong>（覆盖会后复盘、跨团队协同、跨语种沟通三类场景）、<strong>公开行业资料中的共性问题</strong>。收敛后保留 5 项高置信需求，剔除「会议情绪分析」「自动生成汇报 PPT」等提及率低、与核心场景关联弱的候选。</p>
+
+    <table>
+        <caption>表 1　需求池：5 项需求及其场景痛点</caption>
+        <tr><th>编号</th><th>需求</th><th>典型场景与痛点</th><th>访谈提及</th></tr>
+        <tr>
+            <td class="num"><strong>R1</strong></td>
+            <td>实时转写与说话人分离</td>
+            <td>会后需要回溯「谁说了什么」，但录音无法检索、逐字稿无法按人切分，只能反复听录音。<sup><a href="#cite-3">[3]</a></sup></td>
+            <td class="num">11 / 12</td>
+        </tr>
+        <tr>
+            <td class="num"><strong>R2</strong></td>
+            <td>结构化纪要自动生成</td>
+            <td>逐字稿信息量大但读不完，找不到决议和责任人；需要「议题—讨论—决议—待办」四段式结论而非流水文本。</td>
+            <td class="num">12 / 12</td>
+        </tr>
+        <tr>
+            <td class="num"><strong>R3</strong></td>
+            <td>待办识别并同步协作工具</td>
+            <td>待办靠人工整理，还要手动搬运到飞书任务 / Jira / Notion，跨系统断点导致遗漏；任务完成状态无法回写到纪要。<sup><a href="#cite-7">[7]</a></sup></td>
+            <td class="num">9 / 12</td>
+        </tr>
+        <tr>
+            <td class="num"><strong>R4</strong></td>
+            <td>跨会议知识库检索与追问</td>
+            <td>历史结论散落在各个文档里，同一个问题被反复讨论；需要「上次这个需求是怎么定的」式的跨会议问答。</td>
+            <td class="num">7 / 12</td>
+        </tr>
+        <tr>
+            <td class="num"><strong>R5</strong></td>
+            <td>多语言实时翻译与双语纪要</td>
+            <td>跨语种会议需要额外翻译人力；但目标用户中跨语种会议频次极低，属低频强需求场景。</td>
+            <td class="num">5 / 12</td>
+        </tr>
+    </table>
+    <p class="tbl-note">提及频次基于 12 位受访者的访谈记录统计（模拟样本）。「提及率高」只说明需求被感知到的普遍程度，不等于满意度杠杆，这一点在 2.4 节被数据证实。</p>
+
+    <h3>2.3 Kano 问卷设计与评价矩阵</h3>
+    <p>每项需求设<strong>正向题</strong>（「如果具备该功能，你的感受是」）与<strong>反向题</strong>（「如果不具备该功能，你的感受是」），受访者在「很喜欢 / 理应如此 / 无所谓 / 勉强接受 / 很不喜欢」5 级中作答。将同一受访者的正向与反向答案交叉查表，即得到该样本对该需求的单样本属性判定。</p>
+
+    <table>
+        <caption>表 2　Kano 评价矩阵（行为反向题答案，列为正向题答案）</caption>
+        <tr><th>反向 ＼ 正向</th><th>很喜欢</th><th>理应如此</th><th>无所谓</th><th>勉强接受</th><th>很不喜欢</th></tr>
+        <tr><th>很喜欢</th><td class="num">Q</td><td class="num">A</td><td class="num">A</td><td class="num">A</td><td class="num">O</td></tr>
+        <tr><th>理应如此</th><td class="num">R</td><td class="num">I</td><td class="num">I</td><td class="num">I</td><td class="num">M</td></tr>
+        <tr><th>无所谓</th><td class="num">R</td><td class="num">I</td><td class="num">I</td><td class="num">I</td><td class="num">M</td></tr>
+        <tr><th>勉强接受</th><td class="num">R</td><td class="num">I</td><td class="num">I</td><td class="num">I</td><td class="num">M</td></tr>
+        <tr><th>很不喜欢</th><td class="num">R</td><td class="num">R</td><td class="num">R</td><td class="num">R</td><td class="num">Q</td></tr>
+    </table>
+    <p class="tbl-note">A 魅力属性 · O 期望属性 · M 必备属性 · I 无差异属性 · R 反向属性 · Q 可疑结果（自相矛盾，本报告剔除，不计入分母）。</p>
+
+    <p>单样本判定完成后按<strong>多数票</strong>确定需求属性。为保留「程度」信息，同时计算 Better–Worse 系数，用于后续的四象限定位：</p>
+    <div class="callout">
+        <span class="callout-label">计算公式</span>
+        <span class="mono">Better = (A + O) / (A + O + M + I)</span>　—— 功能满足时满意度上升的幅度，取值 0–1，越接近 1 越值得做。<br>
+        <span class="mono">Worse = − (O + M) / (A + O + M + I)</span>　—— 功能缺失时满意度下降的幅度，取绝对值后越接近 1 越不能缺。<br>
+        分母只统计 A/O/M/I 四类；本样本中 R 与 Q 均为 0，故分母等于有效样本数 12。
+    </div>
+
+    <h3>2.4 属性划分与 Better–Worse 系数</h3>
+    <table>
+        <caption>表 3　Kano 属性划分与 Better–Worse 系数（n = 12）</caption>
+        <tr><th>编号 / 需求</th><th>样本属性分布</th><th>判定属性</th><th class="num">Better</th><th class="num">|Worse|</th><th>四象限定位</th></tr>
+        <tr>
+            <td><strong>R1 实时转写与说话人分离</strong></td>
+            <td class="num"><span class="mono">A0 · O3 · M7 · I2 · R0</span></td>
+            <td class="num"><span class="tag tag-m">必备 M</span></td>
+            <td class="num">0.25</td>
+            <td class="num">0.83</td>
+            <td>必备象限（左上）</td>
+        </tr>
+        <tr>
+            <td><strong>R2 结构化纪要自动生成</strong></td>
+            <td class="num"><span class="mono">A2 · O7 · M2 · I1 · R0</span></td>
+            <td class="num"><span class="tag tag-o">期望 O</span></td>
+            <td class="num">0.75</td>
+            <td class="num">0.75</td>
+            <td>期望象限（右上）</td>
+        </tr>
+        <tr>
+            <td><strong>R3 待办识别并同步协作工具</strong></td>
+            <td class="num"><span class="mono">A3 · O5 · M2 · I2 · R0</span></td>
+            <td class="num"><span class="tag tag-o">期望 O</span></td>
+            <td class="num">0.67</td>
+            <td class="num">0.58</td>
+            <td>期望象限（右上）</td>
+        </tr>
+        <tr>
+            <td><strong>R4 跨会议知识库检索与追问</strong></td>
+            <td class="num"><span class="mono">A7 · O2 · M0 · I3 · R0</span></td>
+            <td class="num"><span class="tag tag-a">魅力 A</span></td>
+            <td class="num">0.75</td>
+            <td class="num">0.17</td>
+            <td>魅力象限（右下）</td>
+        </tr>
+        <tr>
+            <td><strong>R5 多语言实时翻译与双语纪要</strong></td>
+            <td class="num"><span class="mono">A2 · O1 · M1 · I8 · R0</span></td>
+            <td class="num"><span class="tag tag-i">无差异 I</span></td>
+            <td class="num">0.25</td>
+            <td class="num">0.17</td>
+            <td>无差异象限（左下）</td>
+        </tr>
+    </table>
+    <p class="tbl-note">判定属性取单样本属性的多数票；Better / |Worse| 由 2.3 节公式按 12 份有效样本计算。四象限以两项系数的均值为分界线：Better 均值 0.53，|Worse| 均值 0.50。</p>
+
+    <p>三点值得注意：其一，<strong>R1 的 |Worse| 达到 0.83，是全部需求中最高的</strong>——它必须做，但做完也不会带来满意度的显著提升，属于典型的「入场券」；其二，<strong>R2 的两项系数同时站在高位</strong>，是唯一「做得好加分、做不好扣分」都很明显的需求，价值最确定；其三，<strong>R4 与 R5 的 |Worse| 同为 0.17，但 Better 相差 0.50</strong>，这正是「魅力」与「无差异」的分水岭：前者值得投入，后者不值得。</p>
+
+    <h3>2.5 四象限图：用系数给需求定位</h3>
+    <p>把 Better 系数作为横轴、|Worse| 系数作为纵轴，5 项需求被分入四个象限。象限的含义直接对应 Kano 的属性策略。</p>
+    <div class="chart-box">
+        <div class="chart-title">图 1　Kano Better–Worse 四象限图（n = 12）</div>
+        <div class="mermaid">
+quadrantChart
+    title Kano Better-Worse 四象限定位
+    x-axis "Better 低" --> "Better 高"
+    y-axis "|Worse| 低" --> "|Worse| 高"
+    quadrant-1 "期望象限"
+    quadrant-2 "必备象限"
+    quadrant-3 "无差异象限"
+    quadrant-4 "魅力象限"
+    "R1 转写分离": 0.25, 0.83
+    "R2 结构化纪要": 0.75, 0.75
+    "R3 待办流转": 0.67, 0.58
+    "R4 跨会追问": 0.75, 0.17
+    "R5 多语言": 0.25, 0.17
+        </div>
+        <p class="tbl-note">横轴 Better 越大代表「功能满足时满意度提升越多」，纵轴 |Worse| 越大代表「功能缺失时不满越强」。R1 实时转写与说话人分离 · R2 结构化纪要自动生成 · R3 待办识别并同步协作工具 · R4 跨会议知识库检索与追问 · R5 多语言实时翻译与双语纪要。数据来源：表 3。</p>
+    </div>
+    <div class="callout">
+        <span class="callout-label">读图结论</span>
+        只有 R2、R3 落在右上期望象限，说明满意度杠杆集中在「纪要生成 + 待办流转」这一对能力上；R1 单独占据左上必备象限（|Worse| 最高、Better 最低），是必须先补的底线；R4 独占右下魅力象限，是唯一「投入产出比高且可以晚一点做」的需求；R5 落在左下，与 R4 的横向差距（Better 0.25 对 0.75）直观说明了为什么它应当被降级。
+    </div>
+
+    <h3>2.6 用复合分排出优先级（并带上四象限）</h3>
+    <p>只按 Kano 属性排序会丢掉「程度」信息（同为期望属性，R2 与 R3 的价值并不相同），只按系数排序又会把「不做就流失」的必备属性排在后面。因此这里用<strong>属性权重与系数的复合分</strong>排序：</p>
+    <div class="callout">
+        <span class="callout-label">优先级计算公式</span>
+        <span class="mono">优先级得分 = 0.5 × 属性权重 + 0.3 × Better + 0.2 × |Worse|</span><br>
+        属性权重：必备 M = 1.0、期望 O = 0.8、魅力 A = 0.5、无差异 I = 0.1。权重占 50%，保证「不做就流失」的必备属性不被低 Better 拉低；两项系数合计占 50%，保证满意度杠杆大的期望属性排在前面。<br>
+        分级阈值：P0 ≥ 0.70，P1 = 0.50–0.69，P2 &lt; 0.50。
+    </div>
+
+    <table>
+        <caption>表 4　需求优先级排序（含 Kano 属性与四象限，n = 12）</caption>
+        <tr><th class="num">排序</th><th>需求</th><th>Kano 属性</th><th class="num">Better / |Worse|</th><th>四象限</th><th class="num">优先级得分</th><th>优先级等级</th></tr>
+        <tr>
+            <td class="num">1</td>
+            <td><strong>R2 结构化纪要自动生成</strong></td>
+            <td class="num"><span class="tag tag-o">期望 O</span></td>
+            <td class="num">0.75 / 0.75</td>
+            <td>期望象限（右上）</td>
+            <td class="num">0.78</td>
+            <td class="num"><span class="tag tag-p0">P0</span></td>
+        </tr>
+        <tr>
+            <td class="num">2</td>
+            <td><strong>R1 实时转写与说话人分离</strong></td>
+            <td class="num"><span class="tag tag-m">必备 M</span></td>
+            <td class="num">0.25 / 0.83</td>
+            <td>必备象限（左上）</td>
+            <td class="num">0.74</td>
+            <td class="num"><span class="tag tag-p0">P0</span></td>
+        </tr>
+        <tr>
+            <td class="num">3</td>
+            <td><strong>R3 待办识别并同步协作工具</strong></td>
+            <td class="num"><span class="tag tag-o">期望 O</span></td>
+            <td class="num">0.67 / 0.58</td>
+            <td>期望象限（右上）</td>
+            <td class="num">0.72</td>
+            <td class="num"><span class="tag tag-p0">P0</span></td>
+        </tr>
+        <tr>
+            <td class="num">4</td>
+            <td><strong>R4 跨会议知识库检索与追问</strong></td>
+            <td class="num"><span class="tag tag-a">魅力 A</span></td>
+            <td class="num">0.75 / 0.17</td>
+            <td>魅力象限（右下）</td>
+            <td class="num">0.51</td>
+            <td class="num"><span class="tag tag-p1">P1</span></td>
+        </tr>
+        <tr>
+            <td class="num">5</td>
+            <td><strong>R5 多语言实时翻译与双语纪要</strong></td>
+            <td class="num"><span class="tag tag-i">无差异 I</span></td>
+            <td class="num">0.25 / 0.17</td>
+            <td>无差异象限（左下）</td>
+            <td class="num">0.16</td>
+            <td class="num"><span class="tag tag-p2">P2</span></td>
+        </tr>
+    </table>
+
+    <h3>2.7 三个优先级梯队与行动建议</h3>
+    <div class="row-item">
+        <div class="row-title">P0 必须做 · MVP 范围（R2 → R1 → R3）</div>
+        <div class="row-body">三项同时覆盖必备与期望两类属性，构成「能用的底线 + 好用的价值」：R1 保证输入质量，R2 交付核心价值，R3 把价值推进到执行。三者缺一，链路就在中间断开。<br><strong>下一步：</strong>把 R1–R3 作为一个迭代整体规划，验收标准对齐 5.5 节的指标。</div>
+        <div class="row-meta">得分 0.78 / 0.74 / 0.72</div>
+    </div>
+    <div class="row-item">
+        <div class="row-title">P1 重点做 · 差异化亮点（R4）</div>
+        <div class="row-body">唯一的魅力属性，Better 0.75 与 R2 持平，但 |Worse| 仅 0.17——投入产出比高，且晚一个迭代做不会造成流失。<br><strong>下一步：</strong>MVP 稳定后 4–6 周内上线，作为对外传播与口碑的核心卖点，而不是放进 MVP 抢资源。</div>
+        <div class="row-meta">得分 0.51 · 魅力象限</div>
+    </div>
+    <div class="row-item">
+        <div class="row-title">P2 暂缓 · 主动降级（R5）</div>
+        <div class="row-body">12 人中有 8 人判为无差异，Better 与 |Worse| 双低，属于「投入大、感知弱」的典型。<br><strong>下一步：</strong>不做实时同传，只保留轻量的「纪要翻译」——把已经生成的纪要翻成目标语言，复用已有能力、成本极低；若后续跨语种会议占比上升，再回到 Kano 重新验证。</div>
+        <div class="row-meta">得分 0.16 · 无差异象限</div>
+    </div>
+    <div class="callout key">
+        <span class="callout-label">排序结论与四象限的对应关系</span>
+        三个 P0 需求分布在<strong>必备象限（R1）与期望象限（R2、R3）</strong>，唯一的魅力需求被单独放在 P1，无差异需求被降到 P2——这正是一条符合 Kano 逻辑的资源分配曲线：<strong>先把必备象限补到及格线，再把期望象限做到领先，最后用魅力象限制造惊喜，同时果断放弃无差异象限</strong>。
+    </div>
+</section>
+
+<!-- ==================== 三、用户画像 ==================== -->
+<section id="research" class="section">
+    <h2>三、用户画像</h2>
+
+    <h3>3.1 画像总览与人群分布</h3>
+    <p>三类目标用户对应三张画像。画像中的「核心诉求」与「最痛的瞬间」直接来自 12 位受访者的访谈记录，并与第二节的 Kano 判定结果互相印证：<strong>P1 主导的 R2 / R3 落在期望象限，P2 与 P3 共同依赖的 R1 落在必备象限，而只有 P3 关心的 R5 被判定为无差异属性。</strong></p>
+    <p>需要说明的是，P3 在样本中仅有 2 人（P11–P12），其「多语言」诉求在统计上不足以支撑高优先级判断——这正是 R5 被判为无差异属性的原因之一，也是画像与 Kano 数据交叉验证的价值所在。</p>
+
+    <h3>3.2 画像一 · 张然｜会议密集的产品负责人</h3>
+    <article class="persona">
+        <div class="persona-head">
+            <div class="avatar">张</div>
+            <div>
+                <div class="persona-name">张然 · 产品负责人</div>
+                <div class="persona-meta">32 岁｜互联网公司 To B 产品线｜核心人群约 50%｜对应受访者 P01–P06（6 人）</div>
+            </div>
+        </div>
+        <dl>
+            <div class="fact"><dt>典型一周</dt><dd>主持 6 场评审会、参加 5 场跨部门同步会，会后需要在当天把纪要与待办发出去。</dd></div>
+            <div class="fact"><dt>核心诉求</dt><dd>纪要要快、要全，决议要能追到具体的人和具体的时间点。</dd></div>
+            <div class="fact"><dt>最痛的瞬间</dt><dd>会开完了没人写纪要；等纪要写完发出去，决议已经过时，还得重新确认一遍。</dd></div>
+            <div class="fact"><dt>对工具的态度</dt><dd>「我不需要它帮我思考，我需要它替我把会议变成一张能盯的表。」</dd></div>
+        </dl>
+        <p class="persona-quote">对应需求：他既要求「记得准」（R1 必备属性），也要求「出得快、跟得住」（R2、R3 期望属性）——这三项恰好构成 MVP 最小闭环。</p>
+        <p><span class="tag tag-o">R2 期望属性</span><span class="tag tag-o">R3 期望属性</span><span class="tag tag-m">R1 必备属性</span></p>
+    </article>
+
+    <h3>3.3 画像二 · 李昕｜跨部门信息对齐者</h3>
+    <article class="persona">
+        <div class="persona-head">
+            <div class="avatar">李</div>
+            <div>
+                <div class="persona-name">李昕 · 跨部门项目协调人</div>
+                <div class="persona-meta">28 岁｜市场 / 运营｜约 30%｜对应受访者 P07–P10（4 人）</div>
+            </div>
+        </div>
+        <dl>
+            <div class="fact"><dt>典型一周</dt><dd>只参加部分会议，其余靠纪要补齐上下文；经常需要向上汇报「上次会上到底定了什么」。</dd></div>
+            <div class="fact"><dt>核心诉求</dt><dd>纪要必须与事实一致，并且能补上自己没听到的那一段讨论。</dd></div>
+            <div class="fact"><dt>最痛的瞬间</dt><dd>转写把关键人名和数字识别错，纪要看起来完整，但结论是错的——她还要为这份纪要背书。</dd></div>
+            <div class="fact"><dt>对工具的态度</dt><dd>「我最怕的不是纪要出得晚，而是纪要是错的。」</dd></div>
+        </dl>
+        <p class="persona-quote">对应需求：她的诉求集中在「可信」上——R1 转写准确率是底线（|Worse| 0.83，缺失痛感最强），R2 结构化纪要决定她能否直接复用。</p>
+        <p><span class="tag tag-m">R1 必备属性</span><span class="tag tag-o">R2 期望属性</span></p>
+    </article>
+
+    <h3>3.4 画像三 · Daniel｜跨国远程协作者</h3>
+    <article class="persona">
+        <div class="persona-head">
+            <div class="avatar">D</div>
+            <div>
+                <div class="persona-name">Daniel · 跨国团队工程经理</div>
+                <div class="persona-meta">35 岁｜跨国团队，中英双语会议｜约 20%｜对应受访者 P11–P12（2 人）</div>
+            </div>
+        </div>
+        <dl>
+            <div class="fact"><dt>典型一周</dt><dd>每周 3 场跨时区会议，一半同事并非中文母语，纪要需要在中英两边同时可用。</dd></div>
+            <div class="fact"><dt>核心诉求</dt><dd>跨语言能直接读，但更在意「翻译之后结论是否仍然准确」。</dd></div>
+            <div class="fact"><dt>最痛的瞬间</dt><dd>翻译把「可以上线」译成「可以考虑」，两边的理解出现偏差，还要再开一次会来对齐。</dd></div>
+            <div class="fact"><dt>对工具的态度</dt><dd>「翻译是锦上添花，翻译错了才是灾难。」</dd></div>
+        </dl>
+        <p class="persona-quote">对应需求：多语言（R5）对他有价值但并非必需，因此 Kano 判定为无差异属性——建议以轻量的「纪要翻译」满足，不做实时同传。</p>
+        <p><span class="tag tag-i">R5 无差异属性</span><span class="tag tag-m">R1 必备属性</span></p>
+    </article>
+</section>
+
+<!-- ==================== 四、产品核心链路 ==================== -->
+<section id="link" class="section">
+    <h2>四、产品核心链路</h2>
+
+    <h3>4.1 核心链路：把 5 项需求组织成一条闭环</h3>
+    <p>把 5 项需求按会议生命周期重新排列，得到一条从「会前」到「沉淀」再回到「会前」的闭环业务链。需要注意的是，<strong>链路顺序与优先级顺序并不重合</strong>：R1 位于链路的第二环，却是 P0，因为它是整条链路的输入质量天花板——转写错一个字，下游的纪要、待办、知识库会全部继承这个错误。</p>
+
+    <div class="chain-flow">
+        <div class="chain-step key">
+            <div class="chain-no">01</div>
+            <div class="chain-name">会前 · 准备</div>
+            <div class="chain-desc">接入日程与议题，自动调取上次会议的纪要与未完成待办，让会议带着上下文开始。</div>
+            <div class="chain-tag">R4 读取 · R3 状态回写</div>
+        </div>
+        <div class="chain-step">
+            <div class="chain-no">02</div>
+            <div class="chain-name">会中 · 记录</div>
+            <div class="chain-desc">实时转写并按发言人切分段落，保证每一句结论事后都能回溯到人。</div>
+            <div class="chain-tag">R1</div>
+        </div>
+        <div class="chain-step key">
+            <div class="chain-no">03</div>
+            <div class="chain-name">会后 · 生成</div>
+            <div class="chain-desc">输出「议题—讨论—决议—待办」四段式结构化纪要，而不是流水逐字稿。</div>
+            <div class="chain-tag">R2</div>
+        </div>
+        <div class="chain-step key">
+            <div class="chain-no">04</div>
+            <div class="chain-name">流转 · 执行</div>
+            <div class="chain-desc">待办带着责任人与截止时间写入协作工具，任务状态回写到纪要。</div>
+            <div class="chain-tag">R3</div>
+        </div>
+        <div class="chain-step">
+            <div class="chain-no">05</div>
+            <div class="chain-name">沉淀 · 复用</div>
+            <div class="chain-desc">纪要入库形成组织记忆，支持跨会议检索与「上次怎么定的」式追问。</div>
+            <div class="chain-tag">R4</div>
+        </div>
+    </div>
+    <div class="chain-loop"><b>闭环：</b>第 05 环沉淀的结论与未完成待办，在第 01 环被自动调取，形成「沉淀 → 反哺」的回路。链路的价值主张是——把会议从一次性事件，变成可检索、可追踪、可复用的组织记忆。</div>
+    <p class="tbl-note">加粗边框的三环（01 准备、03 生成、04 流转）是 MVP 直接交付的环节；02 记录是它们的输入前提，05 沉淀是后续的复用层。</p>
+
+    <div class="chart-box">
+        <div class="chart-title">图 2　核心链路流程总图（会议生命周期闭环）</div>
+        <div class="mermaid">
+flowchart LR
+    A["01 会前 · 准备<br/>调取上次纪要与未完成待办"] --> B["02 会中 · 记录<br/>实时转写 + 说话人分离"]
+    B --> C["03 会后 · 生成<br/>四段式结构化纪要"]
+    C --> D["04 流转 · 执行<br/>待办写入协作工具"]
+    D --> E["05 沉淀 · 复用<br/>跨会议检索与追问"]
+    E -. "结论与待办反哺" .-> A
+        </div>
+        <p class="tbl-note">实线为主流程，虚线为「沉淀 → 反哺」回路；蓝色高亮环节对应图上方加粗边框卡片。</p>
+    </div>
+
+    <table>
+        <caption>表 5　业务链环节 × 需求 × 衡量指标映射</caption>
+        <tr><th>业务环节</th><th>用户目标</th><th>支撑需求</th><th>关键衡量指标</th><th>对应属性</th></tr>
+        <tr>
+            <td><strong>01 会前 · 准备</strong></td>
+            <td>开会前就知道上次结论与未完成事项</td>
+            <td>R4（读取侧）· R3（状态回写）</td>
+            <td>会前上下文命中率 · 上次待办回顾覆盖率</td>
+            <td><span class="tag tag-a">魅力</span> <span class="tag tag-o">期望</span></td>
+        </tr>
+        <tr>
+            <td><strong>02 会中 · 记录</strong></td>
+            <td>不遗漏任何发言，事后可回溯到人</td>
+            <td>R1</td>
+            <td>转写准确率 · 说话人分离准确率</td>
+            <td><span class="tag tag-m">必备</span></td>
+        </tr>
+        <tr>
+            <td><strong>03 会后 · 生成</strong></td>
+            <td>5 分钟内拿到可读的结论，而不是逐字稿</td>
+            <td>R2</td>
+            <td>纪要采纳率 · 人工修改率</td>
+            <td><span class="tag tag-o">期望</span></td>
+        </tr>
+        <tr>
+            <td><strong>04 流转 · 执行</strong></td>
+            <td>决议自动变成有人负责的任务</td>
+            <td>R3</td>
+            <td>待办落地率 · 跨系统同步成功率</td>
+            <td><span class="tag tag-o">期望</span></td>
+        </tr>
+        <tr>
+            <td><strong>05 沉淀 · 复用</strong></td>
+            <td>结论可检索、可复用，不重复讨论</td>
+            <td>R4</td>
+            <td>跨会议检索命中率 · 结论复用率</td>
+            <td><span class="tag tag-a">魅力</span></td>
+        </tr>
+    </table>
+    <p class="tbl-note">链路中最脆弱的两环是「02 会中 · 记录」的输入质量与「04 流转 · 执行」的跨系统断点，这两处即第五节 HMW 优化的对象。</p>
+</section>
+
+<!-- ==================== 五、HMW五步法需求优化 ==================== -->
+<section id="hmw" class="section">
+    <h2>五、HMW 五步法需求优化</h2>
+
+    <h3>5.1 HMW 五步法总览</h3>
+    <p>本节严格按 HMW 五步法展开，每个优化主题都走完同样的五步：<strong>① 问题（明确用户场景问题）→ ② 手段（HMW 分解问题）→ ③ 方案（发散思维头脑风暴）→ ④ 优先级（分类排序）→ ⑤ MVP（流程与原型设计 / 落地节奏）</strong>。</p>
+    <div class="hmw-steps">
+        <div class="hmw-step"><div class="step-no">01</div><div class="step-label">问题</div><div class="step-desc">明确用户场景问题</div></div>
+        <div class="hmw-step"><div class="step-no">02</div><div class="step-label">手段</div><div class="step-desc">HMW 分解问题</div></div>
+        <div class="hmw-step"><div class="step-no">03</div><div class="step-label">方案</div><div class="step-desc">发散思维头脑风暴</div></div>
+        <div class="hmw-step"><div class="step-no">04</div><div class="step-label">优先级</div><div class="step-desc">分类排序</div></div>
+        <div class="hmw-step"><div class="step-no">05</div><div class="step-label">MVP</div><div class="step-desc">流程与原型设计</div></div>
+    </div>
+
+    <h3>5.2 诊断标准与诊断结果</h3>
+    <p>「需要优化的需求」不按提及率判断，而按 Kano 属性与行业现状的差距判断，四条标准如下：</p>
+    <ol>
+        <li><strong>必备属性 M 但体验未达行业基准 → 补短，优先级最高</strong>（不做即流失，且缺失痛感最强）。</li>
+        <li><strong>期望属性 O 且 |Worse| ≥ 0.6 → 满意度杠杆最大，值得持续优化</strong>（做得好加分、做不好扣分都明显）。</li>
+        <li><strong>魅力属性 A → 保持并放大，但控制成本</strong>（没有不致命，有了才惊喜）。</li>
+        <li><strong>无差异属性 I → 降级或暂缓，不做优化投入</strong>（投入大、感知弱）。</li>
+    </ol>
+
+    <table>
+        <caption>表 6　需求健康度诊断：现状基准与缺口</caption>
+        <tr><th>需求</th><th>属性</th><th>行业现状基准</th><th>缺口</th><th>诊断结论</th></tr>
+        <tr>
+            <td><strong>R1 实时转写与说话人分离</strong></td>
+            <td class="num"><span class="tag tag-m">必备 M</span></td>
+            <td>中文转写约 93%、自动待办提取约 72%<sup><a href="#cite-5">[5]</a></sup>；方言与混合语种准确率明显下滑<sup><a href="#cite-3">[3]</a></sup>；即便 97% 准确率，1500 词文本仍会有约 45 个错词，且集中在人名、数字、专业术语<sup><a href="#cite-6">[6]</a></sup></td>
+            <td>错词恰好落在「最关键的词」上，且用户无法定位与校验，只能重听录音</td>
+            <td><strong>需优化：补短（HMW-1）</strong></td>
+        </tr>
+        <tr>
+            <td><strong>R2 结构化纪要自动生成</strong></td>
+            <td class="num"><span class="tag tag-o">期望 O</span></td>
+            <td>主流工具已能自动总结纪要与待办<sup><a href="#cite-1">[1]</a></sup>，但存在识别偏差、发言人角色混淆、关键决策遗漏等问题<sup><a href="#cite-10">[10]</a></sup></td>
+            <td>决议与待办的抽取存在遗漏与过度抽取，初稿仍需人工大改</td>
+            <td><strong>需优化：提效（HMW-2）</strong></td>
+        </tr>
+        <tr>
+            <td><strong>R3 待办识别并同步协作工具</strong></td>
+            <td class="num"><span class="tag tag-o">期望 O</span></td>
+            <td>头部产品已在其自有生态内打通（如妙记与任务、文档联动）<sup><a href="#cite-1">[1]</a></sup>；行动项遗漏的结构性原因是「记录系统与执行系统分离、缺负责人、无自动提醒」<sup><a href="#cite-7">[7]</a></sup></td>
+            <td>跨系统仍需手动搬运，任务状态不回写纪要，闭环断裂</td>
+            <td><strong>需优化：闭环（HMW-2）</strong></td>
+        </tr>
+        <tr>
+            <td><strong>R4 跨会议知识库检索与追问</strong></td>
+            <td class="num"><span class="tag tag-a">魅力 A</span></td>
+            <td>部分产品已支持会中提问与跨会议历史搜索<sup><a href="#cite-4">[4]</a></sup></td>
+            <td>检索仍停留在「文档级」，尚未做到「结论级」定位</td>
+            <td>保持并放大（P1，不占用 MVP 资源）</td>
+        </tr>
+        <tr>
+            <td><strong>R5 多语言实时翻译与双语纪要</strong></td>
+            <td class="num"><span class="tag tag-i">无差异 I</span></td>
+            <td>头部产品已支持 19 种语言实时互译<sup><a href="#cite-3">[3]</a></sup></td>
+            <td>目标用户跨语种会议频次极低（12 人中 8 人判为无差异）</td>
+            <td>降级 / 暂缓，不做优化投入</td>
+        </tr>
+    </table>
+    <p class="tbl-note">行业基准数据为公开资料整理，部分来自厂商自述或小样本测评，仅用于判断「是否落后于行业水平」，不作为精确基准值使用。</p>
+
+    <p>结论是：<strong>需要优化的需求是 R1（补短）与 R2 / R3（提效与闭环）</strong>。R1 属必备属性、|Worse| 全场最高（0.83），体验不达标会直接造成流失；R2 与 R3 属期望属性、|Worse| 分别为 0.75 与 0.58，是满意度杠杆最大的两项，且二者共享同一个断点——「决议」到「执行」之间。因此下面用 HMW 模型分别设计两个优化主题。</p>
+
+    <h3>5.3 HMW-1｜让「不敢信的转写」变成「可验证的结论」</h3>
+    <div class="hmw-box">
+        <div class="hmw-head">
+            <span class="hmw-id">HMW-1</span>
+            <span class="hmw-title">优化对象：R1 实时转写与说话人分离（必备属性短板）</span>
+            <span><span class="tag tag-m">必备 M</span><span class="tag tag-neutral">|Worse| 0.83</span><span class="tag tag-p0">P0</span></span>
+        </div>
+
+        <h4>问题陈述（POV）</h4>
+        <div class="pov">
+            <p><strong>用户：</strong>需要在会后 24 小时内回溯会议结论的项目负责人。</p>
+            <p><strong>需求：</strong>在不完整信任转写文本的前提下，快速拿到并验证可执行的会议结论。</p>
+            <p><strong>洞察：</strong>转写准确率是有天花板的——即使达到 97%，错词也会集中落在人名、数字和专业术语上，而这些恰恰是结论里最不能错的词<sup><a href="#cite-6">[6]</a></sup>。用户真正的问题不是「转写不够准」，而是「<strong>无法验证哪一句可以信</strong>」，于是只能退回重听录音，会议纪要因此失去效率价值。</p>
+        </div>
+
+        <h4>HMW 问题</h4>
+        <div class="callout key">
+            <span class="callout-label">主问题</span>
+            我们如何能让用户在并不完全信任转写文本的前提下，依然能快速拿到并验证可执行的会议结论？
+            <p style="margin-top:8px;"><strong>备选问题</strong></p>
+            · 我们如何让纪要里的每一句结论都能一键回到原声现场？<br>
+            · 我们如何把「会前热词注入」变成降低关键错词率的最短路径？
+        </div>
+
+        <h4>方案发散（6 个方向）</h4>
+        <table>
+            <caption>表 7　HMW-1 方案发散与收敛评估</caption>
+            <tr><th class="num">编号</th><th>方案</th><th class="num">用户价值</th><th class="num">实现成本</th><th>结论</th></tr>
+            <tr>
+                <td class="num"><strong>H1</strong></td>
+                <td>结论可溯源：每条 AI 结论旁标注音频时间戳，点击即跳转到原声片段</td>
+                <td class="num">高</td>
+                <td class="num">中</td>
+                <td><strong>优先做</strong></td>
+            </tr>
+            <tr>
+                <td class="num"><strong>H2</strong></td>
+                <td>会前热词注入：会前导入项目术语表、人名与缩写，作为识别先验</td>
+                <td class="num">高</td>
+                <td class="num">低</td>
+                <td><strong>优先做</strong></td>
+            </tr>
+            <tr>
+                <td class="num"><strong>H3</strong></td>
+                <td>多模态回看：纪要按「决议 / 待办」聚合，每条可展开对应原声与上下文</td>
+                <td class="num">高</td>
+                <td class="num">中</td>
+                <td>与 H1 合并做（同一交互入口）</td>
+            </tr>
+            <tr>
+                <td class="num"><strong>H4</strong></td>
+                <td>置信度可视化 + 一键纠错：低置信度词高亮，用户可修正且修正结果回流模型</td>
+                <td class="num">中</td>
+                <td class="num">中</td>
+                <td>二期做（需交互与模型回流链路）</td>
+            </tr>
+            <tr>
+                <td class="num"><strong>H5</strong></td>
+                <td>会中实时纠偏：发言人在会中即可看到自己的转写并即时口头/文字纠正</td>
+                <td class="num">中</td>
+                <td class="num">中</td>
+                <td>暂缓（干扰会议节奏）</td>
+            </tr>
+            <tr>
+                <td class="num"><strong>H6</strong></td>
+                <td>双引擎交叉校验：低置信度片段用第二模型二次识别，不一致处标记为「待确认」</td>
+                <td class="num">中</td>
+                <td class="num">高</td>
+                <td>暂缓（推理成本翻倍）</td>
+            </tr>
+        </table>
+        <p class="tbl-note">价值与成本为团队内部评估的相对判断，非量化测算结果。</p>
+
+        <h4>收敛方案与验证指标</h4>
+        <p><strong>收敛结论：</strong>优先做 H1 + H2，并把 H3 并入 H1 的交互入口。理由有三：H2 用最低成本直接降低「关键错词率」（人名、术语是错词高发区），H1 与 H3 用同一个「点击跳原声」的交互同时解决「不敢信」与「找不到」，三者共同把「验证成本」从「重听整场会」压到「点一下就确认」。</p>
+        <ul>
+            <li>纪要中<strong>结论可溯源覆盖率 ≥ 90%</strong>（每条结论都带可点击的时间戳）。</li>
+            <li>人名 / 专业术语<strong>错词率下降 ≥ 50%</strong>（对比未开启热词注入的会议）。</li>
+            <li>会后「重新听录音」的行为占比<strong>下降 ≥ 40%</strong>。</li>
+            <li>纪要<strong>人工修改率下降</strong>（人工编辑字数 / 纪要总字数）。</li>
+        </ul>
+    </div>
+
+    <h3>5.4 HMW-2｜让决议在会议结束的那一刻就变成可追踪的任务</h3>
+    <div class="hmw-box">
+        <div class="hmw-head">
+            <span class="hmw-id">HMW-2</span>
+            <span class="hmw-title">优化对象：R2 结构化纪要 + R3 待办流转（期望属性，共享同一断点）</span>
+            <span><span class="tag tag-o">期望 O</span><span class="tag tag-neutral">|Worse| 0.75 / 0.58</span><span class="tag tag-p0">P0</span></span>
+        </div>
+
+        <h4>问题陈述（POV）</h4>
+        <div class="pov">
+            <p><strong>用户：</strong>需要在会后立刻推动落地的团队负责人。</p>
+            <p><strong>需求：</strong>让会议决议在会议结束时就已经有人负责、有截止时间、可被追踪。</p>
+            <p><strong>洞察：</strong>行动项被遗漏有三个结构性原因——记录系统与执行系统分离、缺少负责人、没有自动提醒机制<sup><a href="#cite-7">[7]</a></sup>。行业数据也印证了这一点：83% 的职场人曾因人工记录疏漏而在会后找不到任务负责人，42% 的会议行动项会被完全遗忘<sup><a href="#cite-2">[2]</a></sup>；整体行动项未完成率约为 44%<sup><a href="#cite-9">[9]</a></sup>。真正的断点不在「AI 能不能抽出待办」，而在<strong>抽出来之后没有人确认、也没有回流到执行系统</strong>。</p>
+        </div>
+
+        <h4>HMW 问题</h4>
+        <div class="callout key">
+            <span class="callout-label">主问题</span>
+            我们如何能让会议决议在会议结束的那一刻就变成有人负责、有截止时间、可被追踪的任务？
+            <p style="margin-top:8px;"><strong>备选问题</strong></p>
+            · 我们如何把「AI 全自动抽取」改造成「AI 抽取 + 人确认」的 3 分钟收尾流程？<br>
+            · 我们如何让下一场会议自动回顾上一场的未完成待办？
+        </div>
+
+        <h4>方案发散（6 个方向）</h4>
+        <table>
+            <caption>表 8　HMW-2 方案发散与收敛评估</caption>
+            <tr><th class="num">编号</th><th>方案</th><th class="num">用户价值</th><th class="num">实现成本</th><th>结论</th></tr>
+            <tr>
+                <td class="num"><strong>M1</strong></td>
+                <td>待办确认制：AI 抽取的待办先进入待确认清单，责任人一键确认或改写后再写入工具</td>
+                <td class="num">高</td>
+                <td class="num">低</td>
+                <td><strong>优先做</strong></td>
+            </tr>
+            <tr>
+                <td class="num"><strong>M2</strong></td>
+                <td>状态双向回写：任务完成状态回写纪要，下次会议自动回顾上次待办</td>
+                <td class="num">高</td>
+                <td class="num">中</td>
+                <td><strong>优先做</strong></td>
+            </tr>
+            <tr>
+                <td class="num"><strong>M3</strong></td>
+                <td>逾期催办：临期 / 逾期任务在下次会前自动推送给责任人</td>
+                <td class="num">中</td>
+                <td class="num">低</td>
+                <td>随 M2 一起做（复用任务状态）</td>
+            </tr>
+            <tr>
+                <td class="num"><strong>M4</strong></td>
+                <td>责任人智能匹配：基于历史分配记录与发言上下文自动推荐责任人</td>
+                <td class="num">中</td>
+                <td class="num">中</td>
+                <td>二期做（依赖历史数据积累）</td>
+            </tr>
+            <tr>
+                <td class="num"><strong>M5</strong></td>
+                <td>会中实时抓取：出现「我来负责 / 下周三前」等承诺句式时即时生成待办草稿</td>
+                <td class="num">中</td>
+                <td class="num">中</td>
+                <td>二期做</td>
+            </tr>
+            <tr>
+                <td class="num"><strong>M6</strong></td>
+                <td>多工具适配层：飞书任务 / 钉钉待办 / Jira / Notion 统一映射，一次配置</td>
+                <td class="num">高</td>
+                <td class="num">高</td>
+                <td>工程前置，按客户生态逐个接入</td>
+            </tr>
+        </table>
+        <p class="tbl-note">价值与成本为团队内部评估的相对判断，非量化测算结果。</p>
+
+        <h4>收敛方案与验证指标</h4>
+        <p><strong>收敛结论：</strong>优先做 M1 + M2，M3 随 M2 一起交付，M6 作为工程前置能力先接通 1–2 个主流工具。<strong>M1 是这套方案里性价比最高的一步</strong>：有公开实践数据显示，在 AI 抽取之后增加一个「3 分钟人工复核并把任务推送到任务系统」的收尾流程，行动项完成率在三个月内从 65% 提升到 91%<sup><a href="#cite-8">[8]</a></sup>——即「AI 负责抽取，人负责判断」，把全自动改成半自动，反而换来更高的落地率。M2 则解决断点的另一半：状态不回写，用户就必须跨系统人工核对，闭环永远合不上。</p>
+        <ul>
+            <li>待办抽取准确率<strong>≥ 90%</strong>（行业现状约 72%<sup><a href="#cite-5">[5]</a></sup>）。</li>
+            <li>待办写入协作工具后的<strong>落地率 ≥ 80%</strong>（7 天内被处理）。</li>
+            <li>会后人工整理纪要耗时<strong>≤ 3 分钟</strong>。</li>
+            <li>下一场会议对上次待办的<strong>自动回顾覆盖率 100%</strong>。</li>
+        </ul>
+    </div>
+
+    <h3>5.5 优化落地节奏与验证方式</h3>
+    <table>
+        <caption>表 9　优化动作的落地节奏</caption>
+        <tr><th>节奏</th><th>动作</th><th>对应方案</th><th>验证方式</th></tr>
+        <tr>
+            <td><strong>第 1 个迭代</strong></td>
+            <td>热词注入 + 结论可溯源；待办确认清单 + 状态回写</td>
+            <td>H2 · H1（含 H3）· M1 · M2（含 M3）</td>
+            <td>对照实验：同一批会议，开启与不开启热词注入，对比关键错词率</td>
+        </tr>
+        <tr>
+            <td><strong>第 2 个迭代</strong></td>
+            <td>置信度可视化与一键纠错；责任人智能推荐</td>
+            <td>H4 · M4</td>
+            <td>A/B 测试：纠错交互上线前后，纪要人工修改率的变化</td>
+        </tr>
+        <tr>
+            <td><strong>持续观察</strong></td>
+            <td>多工具适配层按客户生态逐个接入</td>
+            <td>M6</td>
+            <td>跨系统同步成功率与失败原因分布</td>
+        </tr>
+        <tr>
+            <td><strong>重新验证</strong></td>
+            <td>若跨语种会议占比上升，重新对 R5 做 Kano 问卷</td>
+            <td>R5 复盘</td>
+            <td>重新收集 ≥ 12 份问卷，观察 R5 是否从无差异迁移到魅力 / 期望属性</td>
+        </tr>
+    </table>
+    <p class="tbl-note">Kano 属性会随市场成熟度迁移：今天的魅力属性可能成为明天的必备属性，因此建议每 6 个月重跑一次问卷，用同一套方法校验优先级。</p>
+</section>
+
+<!-- ==================== 六、竞品分析（五层模型 + 定性定量） ==================== -->
+<section id="competitor" class="section">
+    <h2>六、竞品分析（五层模型完整拆解：3 款竞品 × 定性 + 定量双轨研究）</h2>
+
+    <h3>基础表头信息</h3>
+    <table>
+        <tr><th>撰写人</th><th>时间</th><th>改动</th><th>备注</th></tr>
+        <tr><td>言简 AI 项目组</td><td>2026.10.26</td><td>3 款竞品五层完整拆解（战略 / 范围 / 结构 / 框架 / 表现），叠加定性 + 定量双轨研究</td><td>竞品数据检索时间：2026 年 10 月</td></tr>
+    </table>
+
+    <h3>6.1 研究设计：定性与定量双轨方法</h3>
+    <p>本章回答一个核心问题：<strong>在「AI 智能会议纪要」这条赛道上，言简 AI 与头部竞品的真实差距与机会在哪里？</strong>为避免「只看功能清单」或「只看数据榜单」的单一视角，研究采用定性 + 定量双轨设计，两条线索互相校验，最后在五层模型上收口。</p>
+
+    <div class="method-grid">
+        <div class="method-card qual">
+            <h4><span class="method-tag">定性研究</span>看「为什么」与「好不好用」</h4>
+            <ul>
+                <li><strong>五层模型拆解：</strong>对每款竞品按战略层 → 范围层 → 结构层 → 框架层 → 表现层逐层走查，战略与范围层分年度还原其演进路径。</li>
+                <li><strong>核心任务走查（Heuristic Walkthrough）：</strong>以 3 项关键任务实测各竞品的信息架构与交互闭环（详见 6.9）。</li>
+                <li><strong>公开用户声音归纳：</strong>对官方帮助文档、应用商店与社区测评中的用户评价做主题归纳，提炼好评 / 差评主题。</li>
+            </ul>
+        </div>
+        <div class="method-card quant">
+            <h4><span class="method-tag">定量研究</span>看「有多少」与「值不值」</h4>
+            <ul>
+                <li><strong>桌面数据采集：</strong>收集官方定价页、计费规则、公开报道中的用户规模与商业化指标（详见 6.8）。</li>
+                <li><strong>功能覆盖度核验打分：</strong>对五层各维度按 0–5 分核验打分（0 = 无，3 = 行业平均，5 = 标杆），形成可横向对比的量化矩阵。</li>
+                <li><strong>定价与额度折算：</strong>统一折算各竞品的免费额度与单位时长成本，比较付费墙高度。</li>
+            </ul>
+        </div>
+    </div>
+    <div class="callout warn">
+        <span class="callout-label">数据口径说明</span>
+        定量数据均来自竞品官方定价页 / 帮助中心及公开报道（引用见文末 [11]–[17]），检索时间 2026 年 10 月；其中用户规模多为厂商自述，仅供量级参考。功能覆盖度打分为本报告基于官方文档逐项核验后的分析师评分，评分口径统一、可复算，但含主观判断，不构成客观基准。
+    </div>
+
+    <h3>6.2 竞品选择与基础总表</h3>
+    <p>三款竞品即第二节需求收集时所用的「竞品功能拆解」对象，覆盖三种典型形态：大厂生态型、独立工具型、海外标杆型——三者恰好构成「我方产品所处赛道」的完整坐标系。</p>
+    <table>
+        <caption>表 10　竞品基础总表</caption>
+        <tr><th>竞品序号</th><th>竞品名称</th><th>产品类型</th><th>生命周期状态</th><th>赛道定位</th></tr>
+        <tr>
+            <td class="num"><strong>竞品1</strong></td>
+            <td>飞书妙记</td>
+            <td>直接竞品（大厂生态协同型）</td>
+            <td>成熟期</td>
+            <td>飞书生态内的会议记录与智能纪要组件</td>
+        </tr>
+        <tr>
+            <td class="num"><strong>竞品2</strong></td>
+            <td>通义听悟</td>
+            <td>直接竞品（独立 AI 转写工具）</td>
+            <td>成长期</td>
+            <td>音视频转写 + AI 整理的个人生产力工具</td>
+        </tr>
+        <tr>
+            <td class="num"><strong>竞品3</strong></td>
+            <td>Otter.ai</td>
+            <td>间接竞品（海外对标，中文支持弱）</td>
+            <td>高速迭代期</td>
+            <td>AI Meeting Agent：自动入会 + 行动项自动化</td>
+        </tr>
+    </table>
+
+    <h3>6.3 竞品分析 6 步骤流转图</h3>
+    <div class="chart-box">
+        <div class="mermaid">
+flowchart LR
+    A["① 找到并确认竞品<br/>生态型/工具型/海外型"] --> B["② 定性拆解五层特征<br/>战略/范围/结构/框架/表现"]
+    B --> C["③ 定量核验数据<br/>定价/额度/规模/打分"]
+    C --> D["④ 拆解竞品迭代与生命周期"]
+    D --> E["⑤ 确认我方阶段并分层制定计划"]
+    E --> F["⑥ 复盘输出差异化结论"]
+        </div>
+    </div>
+
+    <h3>6.4 五层产品模型层级结构图（自上而下约束）</h3>
+    <div class="chart-box">
+        <div class="mermaid">
+flowchart TD
+    A["顶层：战略层<br/>定位 · 商业模式 · 付费动机"] --> B["第二层：范围层<br/>功能集合 · 业务架构"]
+    B --> C["第三层：结构层<br/>信息架构 · 操作流程 · 数据流"]
+    C --> D["第四层：框架层<br/>导航 · 页面跳转 · 交互控件"]
+    D --> E["底层：表现层<br/>配色 · 布局 · 视觉 VI"]
+        </div>
+        <p class="tbl-note">上层决定下层：战略层的取舍约束范围层的功能集合，范围层约束结构层的数据流，最终传导到框架层与表现层——分析竞品时同样自上而下还原。</p>
+    </div>
+
+    <!-- ==================== 竞品1 飞书妙记 ==================== -->
+    <div class="comp-head">
+        <span class="comp-no">竞品1</span>
+        <span class="comp-name">飞书妙记（Feishu Minutes）</span>
+        <span class="comp-type">字节跳动 · 飞书生态内智能会议纪要组件 ｜ 定性：五层走查 ｜ 定量：官方定价与生态规模数据</span>
+    </div>
+
+    <div class="layer-title">第一层：战略层（分年度）</div>
+    <table>
+        <tr><th>时间</th><th>企业愿景 / 产品定位</th><th>需求把控</th><th>用户习惯</th><th>商业模式</th></tr>
+        <tr>
+            <td><strong>2023</strong></td>
+            <td>「会议信息无损记录」：飞书协作生态的会议记忆组件，与视频会议、文档、任务同源打通</td>
+            <td>只做「记录与回放」，覆盖转写、发言人识别，不做跨生态能力</td>
+            <td>随飞书会议自然产生，会后自动沉淀到云文档体系，用户零迁移成本</td>
+            <td>飞书套餐内权益，不单独售卖；商业版 / 企业版转写额度不限</td>
+        </tr>
+        <tr>
+            <td><strong>2024</strong></td>
+            <td>「自动总结纪要与待办」：从记录工具升级为 AI 纪要生成器<sup><a href="#cite-1">[1]</a></sup></td>
+            <td>抓「会后整理耗时」痛点，智能纪要自动生成总结、章节与待办</td>
+            <td>养成「开完会看妙记」习惯；免费版设 300 分钟/月额度引导升级<sup><a href="#cite-12">[12]</a></sup></td>
+            <td>免费额度 + 套餐分层；个人版 69 元/月（划线价 95 元）<sup><a href="#cite-11">[11]</a></sup></td>
+        </tr>
+        <tr>
+            <td><strong>2025–2026</strong></td>
+            <td>「AI 时代的开会方式」：升级为飞书智能会议，主打 AI 智能纪要与问答</td>
+            <td>从「看纪要」走向「问纪要」：AI 智能纪要试用额度 + 会中 / 会后 AI 问答</td>
+            <td>会议密集团队把妙记当作团队记忆入口，依赖生态联动</td>
+            <td>体验版免费（AI 纪要 2 篇/人、转写 300 分钟/月）→ 个人版 / 商业版 / 企业版分层<sup><a href="#cite-11">[11]</a></sup></td>
+        </tr>
+    </table>
+    <p class="tbl-note">定量注脚：飞书整体 2026 年月活约 3000 万（QuestMobile 数据，行业第三）<sup><a href="#cite-16">[16]</a></sup>，2025 年营收超 30 亿元、付费转化率高于同行<sup><a href="#cite-17">[17]</a></sup>——妙记不单独披露数据，但显然以「生态增值」而非「独立营收」为战略目标。</p>
+
+    <div class="layer-title">第二层：范围层（功能矩阵）</div>
+    <table>
+        <tr><th>功能模块</th><th>主要功能</th><th>核心功能</th><th>次级功能</th><th>功能架构</th></tr>
+        <tr>
+            <td><strong>会议转写</strong></td>
+            <td>会议实时转写与录制转妙记</td>
+            <td>实时字幕、说话人识别、时间戳定位</td>
+            <td>录音 / 本地文件上传、云文件导入</td>
+            <td rowspan="4">依附飞书主流程（会议 → 妙记 → 文档 / 任务），「单主线 + 生态分支」架构；脱离飞书（Zoom / 腾讯会议 / 线下会议录音）时仅剩文件转写单点能力<sup><a href="#cite-12">[12]</a></sup></td>
+        </tr>
+        <tr>
+            <td><strong>智能纪要</strong></td>
+            <td>AI 自动生成结构化纪要</td>
+            <td>全文总结、章节速览、待办提取</td>
+            <td>妙记问答（Ask AI）、关键词</td>
+        </tr>
+        <tr>
+            <td><strong>协作流转</strong></td>
+            <td>纪要的生态内流转</td>
+            <td>评论 @人、一键转文档、待办转飞书任务</td>
+            <td>知识库沉淀、权限继承</td>
+        </tr>
+        <tr>
+            <td><strong>多语言</strong></td>
+            <td>翻译与双语纪要</td>
+            <td>中英互译、双语对照字幕</td>
+            <td>19 种语言实时互译<sup><a href="#cite-3">[3]</a></sup></td>
+        </tr>
+    </table>
+
+    <div class="layer-title">第三层：结构层（用户操作流程）</div>
+    <div class="chart-box">
+        <div class="mermaid">
+flowchart TD
+    A["飞书会议开始"] --> B["开启录制 / 转写"]
+    B --> C["会议结束自动生成妙记"]
+    C --> D{用户操作分支}
+    D -->|阅读| E["智能纪要：总结 / 章节 / 待办"]
+    D -->|追问| F["妙记问答 Ask AI"]
+    D -->|流转| G["转飞书文档 / 转任务 / 评论@人"]
+    E --> H["沉淀为团队知识库"]
+    F --> H
+    G --> H
+        </div>
+        <p class="tbl-note">结构特点：数据在同一生态内全通——会议、纪要、任务、文档共用一套身份与存储，但流程终点封闭在飞书体系内。</p>
+    </div>
+
+    <div class="layer-title">第四层：框架层（导航、跳转与交互走查）</div>
+    <div class="layer-card">
+        <h5>页面跳转逻辑</h5>
+        <ul>
+            <li>妙记是飞书内的二级入口：从「会议页 / 云文档 / 工作台」三处可进入，会议结束后自动弹出妙记生成页</li>
+            <li>纪要中每条结论带时间戳，点击跳转原声片段，回溯成本低</li>
+            <li>跨模块联动是强项：纪要 → 文档 → 任务一步转换，无需导出</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>导航结构</h5>
+        <ul>
+            <li>无独立导航，完全依托飞书全局框架（消息 / 云文档 / 会议 / 妙记）</li>
+            <li>优点是学习成本为零；代价是非飞书用户完全没有使用入口</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>交互短板（走查发现）</h5>
+        <ul>
+            <li>跨系统断点：待办只能转成飞书任务，Jira / Notion 等外部工具无原生同步</li>
+            <li>免费版 300 分钟/月额度对会议密集团队明显不够，超额后仅保留录音无文字<sup><a href="#cite-12">[12]</a></sup></li>
+            <li>AI 纪要初稿仍存在发言人混淆与决议遗漏，需人工校对<sup><a href="#cite-10">[10]</a></sup></li>
+        </ul>
+    </div>
+
+    <div class="layer-title">第五层：表现层（视觉与体验）</div>
+    <div class="layer-card">
+        <h5>视觉风格与亮点</h5>
+        <ul>
+            <li>字节系现代设计语言：白底、蓝色点缀、高信息密度，与飞书整体一致</li>
+            <li>纪要按发言人折叠、章节导航清晰，长会议的可读性好</li>
+            <li>移动端体验完整，通勤场景回看友好</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>视觉短板</h5>
+        <ul>
+            <li>纪要版式为通用文档样式，缺少「决议 → 待办」的结构化看板视图，落地进度不可视</li>
+            <li>待办、决议、讨论混排在同一文档流里，关键结论的视觉权重不突出</li>
+        </ul>
+    </div>
+
+    <!-- ==================== 竞品2 通义听悟 ==================== -->
+    <div class="comp-head">
+        <span class="comp-no">竞品2</span>
+        <span class="comp-name">通义听悟（已并入「通义效率」）</span>
+        <span class="comp-type">阿里云 · 独立 AI 转写与整理工具 ｜ 定性：五层走查 ｜ 定量：官方计费规则与额度数据</span>
+    </div>
+
+    <div class="layer-title">第一层：战略层（分年度）</div>
+    <table>
+        <tr><th>时间</th><th>企业愿景 / 产品定位</th><th>需求把控</th><th>用户习惯</th><th>商业模式</th></tr>
+        <tr>
+            <td><strong>2023</strong></td>
+            <td>「工作学习 AI 助手」：阿里云出品的工作学习 AI 助手（公测期），独立于办公套件的通用转写工具</td>
+            <td>服务学生 / 记者 / 职场人等个人用户，以「转写准确 + 整理提效」切入，推出高校公益计划获客</td>
+            <td>以「上传文件→拿转写稿」为主，用完即走，无会议系统集成</td>
+            <td>免费额度为主（公测期大额度），先规模后商业化</td>
+        </tr>
+        <tr>
+            <td><strong>2024</strong></td>
+            <td>并入通义家族，与阿里云盘、钉钉联动；定位「音视频内容的 AI 整理台」</td>
+            <td>从「转写准确」延伸到「整理提效」：章节速览、思维导图、PPT 提取、口语书面化</td>
+            <td>多端使用习惯形成：网页 / 桌面端 / 移动端 / 浏览器插件</td>
+            <td>新用户免费试用 90 天；付费按量计费（实时记录 10.5 元/小时、文件转写约 0.6 元/小时）<sup><a href="#cite-13">[13]</a></sup></td>
+        </tr>
+        <tr>
+            <td><strong>2025–2026</strong></td>
+            <td>升级为「通义效率」，从工具转向个人效率工作台，延伸播客 / 访谈 / 课程字幕等内容创作场景</td>
+            <td>抓「内容再利用」需求：转写稿 → 笔记 / 字幕 / 导图 / 待办的多形态输出</td>
+            <td>个人高频使用（学习 / 访谈整理 / 网课），但团队协作场景弱</td>
+            <td>试用 + 按量付费 + 会员分层并行；第三方渠道显示约 30 元/月起<sup><a href="#cite-13">[13]</a></sup></td>
+        </tr>
+    </table>
+
+    <div class="layer-title">第二层：范围层（功能矩阵）</div>
+    <table>
+        <tr><th>功能模块</th><th>主要功能</th><th>核心功能</th><th>次级功能</th><th>功能架构</th></tr>
+        <tr>
+            <td><strong>实时记录</strong></td>
+            <td>实时语音转文字</td>
+            <td>实时转写、多语言同步翻译、智能区分发言人</td>
+            <td>麦克风 / 系统内音采集音</td>
+            <td rowspan="4">以「转写文件」为中心的素材管理型架构：所有能力围绕一条音视频记录展开；无会议系统集成、无任务系统外发，整理结果只能导出</td>
+        </tr>
+        <tr>
+            <td><strong>音视频转写</strong></td>
+            <td>文件转文字与字幕</td>
+            <td>1 小时音视频约 5 分钟转写、自动区分发言人、字幕生成</td>
+            <td>本地 / 阿里云盘文件导入、批量转写</td>
+        </tr>
+        <tr>
+            <td><strong>AI 整理</strong></td>
+            <td>转写稿的智能加工</td>
+            <td>全文摘要、章节速览、待办事项、关键词、思维导图</td>
+            <td>口语书面化、自定义 Prompt 整理</td>
+        </tr>
+        <tr>
+            <td><strong>创作辅助</strong></td>
+            <td>内容再利用</td>
+            <td>重要片段标记、截图笔记、PPT 提取</td>
+            <td>导出 Word / PDF / 字幕文件</td>
+        </tr>
+    </table>
+
+    <div class="layer-title">第三层：结构层（用户操作流程）</div>
+    <div class="chart-box">
+        <div class="mermaid">
+flowchart TD
+    A["进入首页（文件列表）"] --> B["上传音视频 / 开启实时记录"]
+    B --> C["AI 转写（区分发言人 + 翻译）"]
+    C --> D["AI 整理：速览 / 摘要 / 待办 / 导图"]
+    D --> E["标记片段 / 截图笔记"]
+    E --> F["导出文档 / 字幕"]
+    F --> G["结束（回到文件列表）"]
+        </div>
+        <p class="tbl-note">结构特点：单文件单流程、闭环在产品内部结束——待办清单只能导出，无法回写到任何执行系统，这是其结构层最大断点。</p>
+    </div>
+
+    <div class="layer-title">第四层：框架层（导航、跳转与交互走查）</div>
+    <div class="layer-card">
+        <h5>页面跳转逻辑</h5>
+        <ul>
+            <li>首页即「我的文件」列表，「上传 / 实时记录」是唯一核心 CTA，任务路径清晰</li>
+            <li>转写完成后进入阅读页：左侧转写稿、右侧 AI 整理面板，稿音同步播放</li>
+            <li>搜索可定位到词级别，但无法按「结论 / 决议」聚合定位</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>导航结构</h5>
+        <ul>
+            <li>顶部少量标签 + 文件列表，层级浅、学习成本低</li>
+            <li>AI 整理能力分散在阅读页多个入口（速览 / 导图 / 待办各一个 tab），功能发现成本偏高</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>交互短板（走查发现）</h5>
+        <ul>
+            <li>无会议实时集成：不能自动加入 Zoom / 腾讯会议 / 飞书会议，纯靠上传与手动录音</li>
+            <li>待办事项生成后不可指派、不可外发到任务系统，闭环断裂</li>
+            <li>计费维度复杂（试用 / 按量 / 会员并行），价格感知不透明<sup><a href="#cite-13">[13]</a></sup></li>
+        </ul>
+    </div>
+
+    <div class="layer-title">第五层：表现层（视觉与体验）</div>
+    <div class="layer-card">
+        <h5>视觉风格与亮点</h5>
+        <ul>
+            <li>阿里系清爽风格：卡片化文件管理、紫色点缀、留白充分</li>
+            <li>中文转写体验口碑好（官方称准确率最高可达 98%<sup><a href="#cite-13">[13]</a></sup>），稿音同步与片段标记对访谈 / 课程场景高效</li>
+            <li>整理结果可视化（导图 / 速览）是其表现层最大亮点</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>视觉短板</h5>
+        <ul>
+            <li>功能入口多而散，「整理能力」的可发现性差，新用户容易只用转写</li>
+            <li>移动端功能不全（部分整理能力仅网页端可用），跨端体验不一致</li>
+        </ul>
+    </div>
+
+    <!-- ==================== 竞品3 Otter.ai ==================== -->
+    <div class="comp-head">
+        <span class="comp-no">竞品3</span>
+        <span class="comp-name">Otter.ai</span>
+        <span class="comp-type">海外独立标杆 · AI Meeting Agent ｜ 定性：五层走查 ｜ 定量：官方定价与 2025 年公开经营数据</span>
+    </div>
+
+    <div class="layer-title">第一层：战略层（分年度）</div>
+    <table>
+        <tr><th>时间</th><th>企业愿景 / 产品定位</th><th>需求把控</th><th>用户习惯</th><th>商业模式</th></tr>
+        <tr>
+            <td><strong>2023</strong></td>
+            <td>AI Notetaker：OtterPilot 自动加入 Zoom / Meet / Teams 会议并实时记录</td>
+            <td>抓「开会时还要分心记笔记」痛点，实现零操作入会与转写</td>
+            <td>绑定日历后完全自动化，用户从「记录者」退化为「阅读者」</td>
+            <td>Freemium 订阅：免费版 + Pro / Business 月付或年付<sup><a href="#cite-14">[14]</a></sup></td>
+        </tr>
+        <tr>
+            <td><strong>2024</strong></td>
+            <td>Workspace 化：面向团队的会议资产管理 + CRM 集成（Salesforce / HubSpot）</td>
+            <td>抓「会后行动项落地」与销售场景「客户纪要自动入库」需求</td>
+            <td>团队共享词汇、共享文件夹、行动项指派成为日常工作流</td>
+            <td>按席位订阅（Pro $8.33 / Business $19.99 每人每月，年付价）<sup><a href="#cite-14">[14]</a></sup></td>
+        </tr>
+        <tr>
+            <td><strong>2025–2026</strong></td>
+            <td>AI Meeting Agent 套件：SDR / Sales / Recruiting 等行业 Agent，从「记录」走向「替你开会」</td>
+            <td>把会议结论直接转化为业务动作（跟进邮件、CRM 更新、招聘反馈）</td>
+            <td>会议 Agent 自动处理会前 / 会中 / 会后全流程，人工只做确认</td>
+            <td>2025 年达成 $100M+ ARR、3500 万+ 全球用户、累计处理 10 亿+ 场会议；获 General Catalyst 领投 3.2 亿美元增长投资<sup><a href="#cite-15">[15]</a></sup></td>
+        </tr>
+    </table>
+
+    <div class="layer-title">第二层：范围层（功能矩阵）</div>
+    <table>
+        <tr><th>功能模块</th><th>主要功能</th><th>核心功能</th><th>次级功能</th><th>功能架构</th></tr>
+        <tr>
+            <td><strong>转写记录</strong></td>
+            <td>实时转写与自动入会</td>
+            <td>OtterPilot 自动入会、实时转写、多说话人识别、自定义词汇</td>
+            <td>移动端录音、音视频文件导入（按套餐限额）</td>
+            <td rowspan="4">「会议资产 + Agent 自动化」架构：以会议为对象，用 Agent 把会后动作（纪要分发、CRM 更新、行动项跟进）自动化，形成会后流水线</td>
+        </tr>
+        <tr>
+            <td><strong>AI 纪要</strong></td>
+            <td>会议摘要与行动项</td>
+            <td>AI 会议摘要、行动项自动提取与指派（assign to teammates）</td>
+            <td>AI Chat 追问会议内容（按套餐计次）</td>
+        </tr>
+        <tr>
+            <td><strong>协作</strong></td>
+            <td>团队协作与共享</td>
+            <td>评论、高亮、共享文件夹、团队空间、协作编辑</td>
+            <td>高级搜索与导出、回放速度调节</td>
+        </tr>
+        <tr>
+            <td><strong>Agent / 集成</strong></td>
+            <td>会后自动化</td>
+            <td>CRM 自动同步、自定义 AI workflow、会议 Agent 套件</td>
+            <td>Slack / 日历集成、管理员控制台</td>
+        </tr>
+    </table>
+
+    <div class="layer-title">第三层：结构层（用户操作流程）</div>
+    <div class="chart-box">
+        <div class="mermaid">
+flowchart TD
+    A["绑定日历（一次性配置）"] --> B["OtterPilot 自动加入会议"]
+    B --> C["实时转写 + 说话人识别"]
+    C --> D["会议结束自动生成摘要与行动项"]
+    D --> E{分发路径}
+    E -->|"邮件 / Slack"| F["参会人收到纪要推送"]
+    E -->|"CRM"| G["客户纪要自动入库"]
+    E -->|"My Agenda"| H["行动项集中追踪与指派"]
+    F --> I["AI Chat 追问会议细节"]
+    G --> I
+    H --> I
+        </div>
+        <p class="tbl-note">结构特点：全行业自动化程度最高——「配置一次，全程零操作」；但中文会议场景不在其主链路内，中文转写质量明显弱于国产工具。</p>
+    </div>
+
+    <div class="layer-title">第四层：框架层（导航、跳转与交互走查）</div>
+    <div class="layer-card">
+        <h5>页面跳转逻辑</h5>
+        <ul>
+            <li>登录即进入 My Conversations 列表；日历绑定后会议自动出现，无需手动创建</li>
+            <li>My Agenda 页聚合所有行动项，可直接指派给团队成员并追踪状态</li>
+            <li>AI Chat 支持对单场 / 跨会议内容追问，答案附引用位置</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>导航结构</h5>
+        <ul>
+            <li>左侧边栏导航：Home / Conversations / My Agenda / Integrations，层级清晰</li>
+            <li>免费版导航与付费版一致，但核心能力（更长单场时长、更多 AI Chat 次数）被额度墙约束<sup><a href="#cite-14">[14]</a></sup></li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>交互短板（走查发现）</h5>
+        <ul>
+            <li>全英文界面与以英文为主的转写引擎：中文会议准确率与体验明显落后，中文用户上手门槛高</li>
+            <li>行动项指派在产品内闭环，但回写到 Jira / Notion 等通用任务工具的原生支持有限</li>
+            <li>免费版单场 30 分钟上限，长会议必须付费<sup><a href="#cite-14">[14]</a></sup></li>
+        </ul>
+    </div>
+
+    <div class="layer-title">第五层：表现层（视觉与体验）</div>
+    <div class="layer-card">
+        <h5>视觉风格与亮点</h5>
+        <ul>
+            <li>标准 SaaS 工具风：清爽、克制、信息密度高，自动化状态（入会中 / 转写中）反馈及时</li>
+            <li>行动项与摘要在视觉上分区明确，扫读效率高</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>视觉短板</h5>
+        <ul>
+            <li>缺乏结构化「结论视图」：长会议仍以线性文本为主，决议 / 待办 / 讨论未做看板化呈现</li>
+            <li>对中文场景的排版与字体适配弱（中英混排可读性一般）</li>
+        </ul>
+    </div>
+
+    <h3>6.8 定量研究 Ⅰ：定价与免费额度对比</h3>
+    <p>把三款竞品的付费墙放在同一口径下比较（数据均为官方公开口径，检索时间 2026 年 10 月）：</p>
+    <table>
+        <caption>表 11　定价与额度对比（官方公开数据）</caption>
+        <tr><th>竞品</th><th>免费额度</th><th>付费方案</th><th>单场时长限制（免费版）</th><th>付费墙特征</th></tr>
+        <tr>
+            <td><strong>飞书妙记</strong></td>
+            <td>300 分钟/月/人（覆盖录制、录音、上传、导入四场景）；AI 智能纪要试用 2 篇/人<sup><a href="#cite-11">[11]</a></sup><sup><a href="#cite-12">[12]</a></sup></td>
+            <td>个人版 69 元/月（划线价 95 元）；商业版 / 企业版额度不受限、随套餐售卖<sup><a href="#cite-11">[11]</a></sup></td>
+            <td>免费开会单次最长 1 小时</td>
+            <td>额度墙 + 生态捆绑：离开飞书生态价值大减，付费决策实为「买飞书」</td>
+        </tr>
+        <tr>
+            <td><strong>通义听悟</strong></td>
+            <td>新用户免费试用 90 天（试用期内实时记录每日 48 小时）<sup><a href="#cite-13">[13]</a></sup></td>
+            <td>按量计费：实时记录 10.5 元/小时、音视频文件转写约 0.6 元/小时；并行会员分层（第三方渠道显示约 30 元/月起）<sup><a href="#cite-13">[13]</a></sup></td>
+            <td>试用期基本无限制</td>
+            <td>试用期慷慨，试用结束后按量计费对高频用户成本陡增</td>
+        </tr>
+        <tr>
+            <td><strong>Otter.ai</strong></td>
+            <td>免费版每月 300 分钟转写<sup><a href="#cite-14">[14]</a></sup></td>
+            <td>Pro $8.33/人/月（1200 分钟/月、10 次导入）；Business $19.99/人/月（6000 分钟/月、无限导入、AI Chat 200 次）；Enterprise 定制<sup><a href="#cite-14">[14]</a></sup></td>
+            <td>单场 30 分钟</td>
+            <td>单场时长 + AI Chat 计次双重额度墙，对中文用户还要叠加语言门槛</td>
+        </tr>
+    </table>
+    <p class="tbl-note">折算结论：以「每场 1 小时会议、每月 20 场」的会议密集团队测算，三款竞品的免费额度均不覆盖真实用量——这正是言简 AI「按会议时长与席位分层付费」可以切入的价格带空隙。</p>
+
+    <h3>6.9 定量研究 Ⅱ：功能覆盖度核验打分</h3>
+    <p>按五层各维度对三款竞品核验打分（0–5 分：0 = 无能力，3 = 行业平均，5 = 行业标杆；打分基于官方文档逐项核验，口径见 6.1 数据说明），并给出言简 AI 的规划目标分：</p>
+    <table>
+        <caption>表 12　五层维度功能覆盖度评分（0–5 分）</caption>
+        <tr><th>五层维度</th><th>飞书妙记</th><th>通义听悟</th><th>Otter.ai</th><th>言简 AI（规划目标）</th><th>评分依据（摘要）</th></tr>
+        <tr>
+            <td><strong>战略层</strong>（定位与商业化完整度）</td>
+            <td class="num">4</td><td class="num">3</td><td class="num">5</td><td class="num">4</td>
+            <td>Otter 独立赛道获 $100M ARR 验证<sup><a href="#cite-15">[15]</a></sup>；飞书妙记强但依附生态；听悟商业化模式尚未收敛</td>
+        </tr>
+        <tr>
+            <td><strong>范围层</strong>（功能覆盖广度）</td>
+            <td class="num">4</td><td class="num">4</td><td class="num">4</td><td class="num">4</td>
+            <td>三家转写与纪要能力均达标；差异不在「有没有」而在「流转到哪」（见结构层）</td>
+        </tr>
+        <tr>
+            <td><strong>结构层</strong>（数据流与集成）</td>
+            <td class="num">5</td><td class="num">3</td><td class="num">4</td><td class="num">5</td>
+            <td>飞书生态内数据全通但出生态即断；Otter 集成 CRM / Slack；听悟为孤立素材库</td>
+        </tr>
+        <tr>
+            <td><strong>框架层</strong>（交互与导航）</td>
+            <td class="num">4</td><td class="num">3</td><td class="num">4</td><td class="num">4</td>
+            <td>飞书 / Otter 导航成熟；听悟功能入口分散；三家均缺「决议级」视图</td>
+        </tr>
+        <tr>
+            <td><strong>表现层</strong>（视觉与中文体验）</td>
+            <td class="num">4</td><td class="num">4</td><td class="num">3</td><td class="num">4</td>
+            <td>国产两家中文排版友好；Otter 中文体验弱；三家均无待办进度可视化</td>
+        </tr>
+        <tr>
+            <td><strong>合计（满分 25）</strong></td>
+            <td class="num"><strong>21</strong></td><td class="num"><strong>17</strong></td><td class="num"><strong>20</strong></td><td class="num"><strong>21</strong></td>
+            <td>总分接近，但短板分布完全不同——差异化机会在结构层与框架层的「结论级闭环」</td>
+        </tr>
+    </table>
+
+    <div class="chart-box">
+        <div class="chart-title">图 3　功能覆盖度总分对比（满分 25，数据来源：表 12）</div>
+        <div class="mermaid">
+xychart-beta
+    title "五层覆盖度总分对比"
+    x-axis ["飞书妙记", "通义听悟", "Otter.ai", "言简AI目标"]
+    bar [21, 17, 20, 21]
+        </div>
+    </div>
+
+    <table>
+        <caption>表 13　规模与商业化指标（公开数据，厂商自述仅供量级参考）</caption>
+        <tr><th>指标</th><th>飞书妙记</th><th>通义听悟</th><th>Otter.ai</th></tr>
+        <tr><td>用户规模</td><td>未单独披露；依托飞书（2026 年月活约 3000 万<sup><a href="#cite-16">[16]</a></sup>）</td><td>未公开披露</td><td>3500 万+ 全球用户（2025）<sup><a href="#cite-15">[15]</a></sup></td></tr>
+        <tr><td>商业化验证</td><td>飞书 2025 年营收超 30 亿元，付费转化率居行业前列<sup><a href="#cite-17">[17]</a></sup></td><td>按量付费 + 会员并行，规模未披露<sup><a href="#cite-13">[13]</a></sup></td><td>$100M+ ARR、累计处理 10 亿+ 场会议<sup><a href="#cite-15">[15]</a></sup></td></tr>
+        <tr><td>资本/组织背书</td><td>字节跳动协同办公线</td><td>阿里云 / 通义家族</td><td>General Catalyst 领投 3.2 亿美元增长投资<sup><a href="#cite-15">[15]</a></sup></td></tr>
+    </table>
+
+    <h3>6.10 定性研究：核心任务走查与用户声音归纳</h3>
+    <h4>走查设计</h4>
+    <p>以目标用户（第一节三类画像）最高频的 3 项任务为脚本，在每款竞品中实际走查完成路径：T1「把一场 60 分钟会议变成可执行结论」、T2「查上周某次会议中关于预算的决定是谁定的」、T3「把会议待办同步到我的任务系统」。</p>
+    <table>
+        <caption>表 14　核心任务走查结果（✓ 顺畅 ｜ △ 可用但费劲 ｜ ✗ 无法完成）</caption>
+        <tr><th>任务</th><th>飞书妙记</th><th>通义听悟</th><th>Otter.ai</th><th>走查发现</th></tr>
+        <tr>
+            <td><strong>T1 会议 → 可执行结论</strong></td>
+            <td class="num">✓（限飞书会议）</td>
+            <td class="num">△</td>
+            <td class="num">✓</td>
+            <td>飞书靠生态闭环、Otter 靠 Agent 自动化，均可自动产出；听悟需手动上传，且待办无法外发</td>
+        </tr>
+        <tr>
+            <td><strong>T2 回溯历史决议</strong></td>
+            <td class="num">△</td>
+            <td class="num">△</td>
+            <td class="num">✓</td>
+            <td>Otter 的 AI Chat + 引用定位最顺；飞书妙记问答限于单场纪要；听悟只能词级搜索，无法按「决议」聚合</td>
+        </tr>
+        <tr>
+            <td><strong>T3 待办同步到任务系统</strong></td>
+            <td class="num">△（仅飞书任务）</td>
+            <td class="num">✗</td>
+            <td class="num">△（CRM 强 / 通用任务弱）</td>
+            <td><strong>三款竞品无一能完整打通「纪要 → 外部任务系统 → 状态回写」</strong>——这正是言简 AI R3（HMW-2）的立身之本</td>
+        </tr>
+    </table>
+
+    <h4>公开用户声音主题归纳（定性）</h4>
+    <p>对官方帮助社区、应用商店与第三方测评中的用户评价做主题归纳（主题频次为定性排序，非精确计数）：</p>
+    <table>
+        <tr><th>竞品</th><th>好评主题（按提及热度）</th><th>差评 / 抱怨主题（按提及热度）</th></tr>
+        <tr>
+            <td><strong>飞书妙记</strong></td>
+            <td>与工作台无缝衔接、开完会自动有纪要省心、纪要转文档 / 任务方便</td>
+            <td>免费 300 分钟不够用、离开飞书没法用、AI 纪要初稿仍要人工改、决议遗漏</td>
+        </tr>
+        <tr>
+            <td><strong>通义听悟</strong></td>
+            <td>中文转写准、整理功能全（速览 / 导图 / PPT 提取）、试用期慷慨</td>
+            <td>待办不能外发只能导出、功能入口太散找不到、计费规则复杂、团队协作弱</td>
+        </tr>
+        <tr>
+            <td><strong>Otter.ai</strong></td>
+            <td>自动入会零操作、行动项指派顺手、AI Chat 追问好用、集成生态丰富</td>
+            <td>中文会议支持弱、免费版单场 30 分钟太短、订阅费对个人偏高、界面全英文</td>
+        </tr>
+    </table>
+    <p class="tbl-note">三款竞品的差评主题高度收敛于两件事：「额度墙」与「闭环断」——与走查结论（表 14）及 Kano 判定（R1 必备、R3 期望）互相印证。</p>
+
+    <h3>6.11 三款竞品五层统一对比总表</h3>
+    <table>
+        <caption>表 15　三款竞品五层统一对比（定性结论 + 我方机会点）</caption>
+        <tr><th>五层维度</th><th>飞书妙记</th><th>通义听悟</th><th>Otter.ai</th><th>我方产品机会点</th></tr>
+        <tr>
+            <td><strong>战略层</strong></td>
+            <td>生态增值组件，不独立营收；个人版 69 元/月</td>
+            <td>个人效率工具，按量 + 会员并行</td>
+            <td>独立赛道标杆，Agent 化，$100M ARR<sup><a href="#cite-15">[15]</a></sup></td>
+            <td>避开生态捆绑与按量计费，主打「团队席位 + 决议追踪」的中间价位与垂直定位</td>
+        </tr>
+        <tr>
+            <td><strong>范围层</strong></td>
+            <td>转写 + 纪要 + 生态流转完备</td>
+            <td>转写 + AI 整理完备，无会议集成</td>
+            <td>转写 + Agent + CRM 集成完备</td>
+            <td>功能对齐行业基线即可（R1/R2 达标），把资源压在竞品共同缺失的「决议落地」（R3）</td>
+        </tr>
+        <tr>
+            <td><strong>结构层</strong></td>
+            <td>生态内数据全通，出生态即断</td>
+            <td>孤立素材库，待办只进不出</td>
+            <td>CRM / Slack 集成强，通用任务工具弱</td>
+            <td>跨生态适配层（M6）：飞书 / 钉钉 / Jira / Notion 统一映射 + 状态回写（对应 HMW-2）</td>
+        </tr>
+        <tr>
+            <td><strong>框架层</strong></td>
+            <td>依托飞书导航，时间戳回溯顺</td>
+            <td>路径清晰但入口分散</td>
+            <td>左侧栏 + My Agenda 聚合行动项</td>
+            <td>「决议看板 + 待办追踪表」的一级视图，把结论从文档流里解放出来（对标 My Agenda 并深化）</td>
+        </tr>
+        <tr>
+            <td><strong>表现层</strong></td>
+            <td>现代文档风，无落地进度可视化</td>
+            <td>清爽卡片风，功能可发现性差</td>
+            <td>SaaS 工具风，中文适配弱</td>
+            <td>结构化结论视图（决议 / 待办 / 讨论分栏）+ 待办进度可视化——三家均未提供</td>
+        </tr>
+    </table>
+
+    <h3>6.12 我方产品五层模型自评（对标 3 款竞品）</h3>
+    <div class="layer-card">
+        <h5>战略层</h5>
+        <ul>
+            <li>竞品分别绑死「生态 / 个人 / 英文市场」；我方定位<strong>中文会议密集团队的「结论可信 + 任务可追」决策助手</strong>，避开通义听悟的个人素材场景与飞书的生态锁定</li>
+            <li>商业化对齐第二节差异化壁垒：免费基础版（转写 + 纪要）／团队全功能（决议追踪 + 协作打通）／企业私有化——价格带落在妙记个人版与 Otter Business 之间</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>范围层</h5>
+        <ul>
+            <li>转写与纪要（R1 / R2）按行业基线补齐即可，不追求功能数量对齐通义听悟的「整理全家桶」</li>
+            <li>把范围层的主要增量放在 R3（待办识别 + 多工具同步）与 R4（跨会议追问）——恰好是走查中三款竞品得 △ / ✗ 的环节</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>结构层</h5>
+        <ul>
+            <li>飞书证明了「数据全通」的价值（结构层 5 分），但其封闭性留出跨生态空位；我方以<strong>开放适配层</strong>承接多生态团队的纪要 → 任务 → 状态回写闭环</li>
+            <li>R4 的「结论级检索」（而非文档级 / 词级）在结构层表现为：决议、待办、议题作为一等数据对象入库，而非塞进一份长文档</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>框架层</h5>
+        <ul>
+            <li>对标 Otter 的 My Agenda 并深化：一级视图即「决议看板 + 待办追踪表」，承接 HMW-1 的结论可溯源（时间戳跳原声）与 HMW-2 的待办确认制</li>
+            <li>三家竞品均无待办进度的一级视图，这是交互框架层最大的空白点</li>
+        </ul>
+    </div>
+    <div class="layer-card">
+        <h5>表现层</h5>
+        <ul>
+            <li>结构化结论视图（决议 / 待办 / 讨论分栏呈现）+ 待办进度可视化——五层走查确认三款竞品均未提供</li>
+            <li>中文优先的排版与热词纠错反馈（H2 / H4），把「可信」做成看得见的设计语言</li>
+        </ul>
+    </div>
+
+    <h3>6.13 竞品分析总结与复盘（核心结论）</h3>
+    <ol style="padding-left:24px;line-height:2.1;">
+        <li><strong>市场格局结论：</strong>三款竞品分踞「生态型 / 工具型 / 海外型」三个生态位，功能覆盖度总分接近（21 / 17 / 20），但<strong>结构层的「纪要 → 外部任务 → 状态回写」闭环三款均未打通</strong>（表 14 走查 T3），中文市场的「跨生态决议落地」是真实空白。</li>
+        <li><strong>三款竞品各自优缺点：</strong>
+            <ul>
+                <li>飞书妙记：优势 = 生态内数据全通、开完会即有纪要；短板 = 出生态即失效、免费额度紧、决议抽取仍需人工校对<sup><a href="#cite-10">[10]</a></sup></li>
+                <li>通义听悟：优势 = 中文转写与整理能力、多形态输出；短板 = 无会议集成、待办只进不出、团队协作弱</li>
+                <li>Otter.ai：优势 = 自动化程度最高、行动项指派与 CRM 集成；短板 = 中文支持弱、免费墙高、通用任务工具回写有限</li>
+            </ul>
+        </li>
+        <li><strong>定性 × 定量交叉验证：</strong>定量侧（表 11–13）显示三家付费墙都卡在「额度」而功能总分接近；定性侧（表 14 与用户声音）显示真正的不满集中在「闭环断」。两者共同指向同一结论——<strong>下一代产品的竞争不在「转写多准」，而在「结论能不能落地」</strong>，与 Kano 判定（R2 / R3 期望属性为满意度杠杆）完全一致。</li>
+        <li><strong>我方差异化壁垒（匹配 KANO 优先级）：</strong>
+            <ul>
+                <li>P0 底线（R1）：热词注入 + 结论可溯源，把「不敢信的转写」做成「可验证的结论」，补齐必备属性的行业及格线</li>
+                <li>P0 杠杆（R2 / R3）：四段式结构化纪要 + 待办确认制 + 跨工具状态回写，占据三家竞品全部 △ / ✗ 的空白区</li>
+                <li>P1 亮点（R4）：结论级跨会议追问，作为口碑与传播卖点，不进 MVP 抢资源</li>
+                <li>P2 降级（R5）：仅保留轻量纪要翻译，不与妙记 19 语互译<sup><a href="#cite-3">[3]</a></sup>正面竞争</li>
+            </ul>
+        </li>
+        <li><strong>迭代落地策略：</strong>MVP 按 5.5 节节奏交付 H1 + H2 + M1 + M2（含 M3）；M6 多工具适配层优先接通飞书任务与钉钉待办（覆盖国内两个最大生态），第二步再接 Jira / Notion；R4 在 MVP 稳定后 4–6 周内上线。</li>
+        <li><strong>长期风险预判：</strong>飞书妙记大概率继续深化生态内 AI（问答 / Agent），但跨生态开放不符合字节利益；Otter 若本地化中文市场将直接冲击，需在 12 个月窗口期内以「跨生态决议闭环 + 结论级检索」建立数据壁垒（团队词库与决议库随使用加深而复用成本上升），形成先发护城河。</li>
+    </ol>
+</section>
+
+<!-- ==================== 七、结语 ==================== -->
+<section id="conclusion" class="section">
+    <h2>七、结语：一条研究链的收口</h2>
+
+    <h3>7.1 决策总账</h3>
+    <p>本报告从 5 项需求出发，依次经过 Kano 属性判定、三类用户画像交叉验证、核心业务链路拆解、HMW 五步方案设计，最后以五层模型对 3 款竞品做定性与定量双轨拆解。全链路的决策收口为一张总账：</p>
+    <table>
+        <caption>表 16　全报告决策总账（每一格都能回溯到对应章节的证据）</caption>
+        <tr><th>决策问题</th><th>结论</th><th>证据来源</th></tr>
+        <tr>
+            <td><strong>做什么</strong></td>
+            <td>P0 = R1（必备底线：转写可信）+ R2 / R3（期望杠杆：结构化纪要 + 待办落地）；R4（P1）口碑后置；R5（P2）降级轻量</td>
+            <td>表 3 / 表 4（Kano 属性 + 复合分）</td>
+        </tr>
+        <tr>
+            <td><strong>为谁做</strong></td>
+            <td>会议密集的产品 / 项目负责人（50%）为核心画像——他们对「决议落地」的需求最刚性，是付费与口碑的引爆点</td>
+            <td>第三章三类画像 × Kano 交叉验证（附录 A）</td>
+        </tr>
+        <tr>
+            <td><strong>怎么走</strong></td>
+            <td>核心链路 = 录音接入 → 高精度转写 → 说话人分离 → 决议提取 → 任务分发与追踪；全链最大卡点在「任务分发与追踪」（完成率 65% → 91% 的杠杆点）</td>
+            <td>第四章链路拆解（cite-8）</td>
+        </tr>
+        <tr>
+            <td><strong>怎么改</strong></td>
+            <td>HMW-1「让每条结论可溯源」→ 时间戳跳原声；HMW-2「让待办自动回流执行系统」→ M1 人工复核推送 + M2 状态回写 + M6 多工具适配层</td>
+            <td>第五章 HMW 五步（表 9–10）</td>
+        </tr>
+        <tr>
+            <td><strong>凭什么赢</strong></td>
+            <td>三款竞品的结构层「纪要 → 外部任务 → 状态回写」闭环全部缺失（走查 T3）；以「跨生态决议落地 + 结论级检索」建立数据壁垒，在 12 个月窗口期形成先发护城河</td>
+            <td>第六章表 14 / 表 15 / 6.13 复盘</td>
+        </tr>
+    </table>
+
+    <h3>7.2 报告局限与后续验证计划</h3>
+    <div class="callout">
+        <span class="callout-label">局限声明</span>
+        ① Kano 问卷为按真实调研流程生成的<strong>模拟样本</strong>（12 人 × 5 项 × 2 题 = 120 个答案），用于完整演示评分口径与判定方法，原始作答见附录 A，不代表真实市场结论；② 竞品定价、额度与规模数据为 <strong>2026-10 检索时点</strong>的公开资料，厂商口径可能随版本调整；③ 核心任务走查基于公开资料与产品实际体验，非大样本可用性测试，结论为定性排序。
+    </div>
+    <ul>
+        <li><strong>需求侧：</strong>用同一份 Kano 问卷对 ≥ 50 名真实目标用户复测，验证 R2 / R3 的期望属性判定与 Better–Worse 系数方向是否一致。</li>
+        <li><strong>竞品侧：</strong>按表 14 的 T1–T3 脚本做实验室走查（每款竞品 8–10 名真实用户），把「△ / ✗」的定性判断转化为任务完成率与耗时数据。</li>
+        <li><strong>产品侧：</strong>上线后以「待办确认率、任务状态回写率、决议引用率」作为北极星指标，直接对应 M1 + M2 + M6 的交付质量。</li>
+    </ul>
+</section>
+
+<!-- ==================== 附录 A ==================== -->
+<section id="appendix" class="section">
+    <h2>附录 A　Kano 问卷原始作答明细</h2>
+
+    <p>本附录公开 2.2 节 Kano 问卷的完整原始作答与单样本判定过程，供复核与复现。每项需求的正向题（「如果具备该功能，你的感受是」）与反向题（「如果不具备该功能，你的感受是」）按表 2 的评价矩阵交叉查表得到单样本属性；判定口径与结果和表 3 完全一致。</p>
+
+    <h3>A.1 受访者构成与作答缩写</h3>
+    <table>
+        <caption>表 A1　受访者构成（n = 12，与第一章画像占比一致）</caption>
+        <tr><th>编号</th><th>画像归属</th><th>编号</th><th>画像归属</th></tr>
+        <tr><td class="num">P01–P06</td><td>会议密集的产品 / 项目负责人（约 50%）</td><td class="num">P07–P10</td><td>跨部门信息对齐者（约 30%）</td></tr>
+        <tr><td class="num">P11–P12</td><td>跨国 / 远程协作团队（约 20%）</td><td class="num">—</td><td>—</td></tr>
+    </table>
+    <div class="callout">
+        <span class="callout-label">作答缩写</span>
+        <span class="mono">喜 = 很喜欢　应 = 理应如此　无 = 无所谓　勉 = 勉强接受　厌 = 很不喜欢</span>；单元格格式为「正向题作答 ／ 反向题作答 → 单样本属性」（按表 2 查表）。
+    </div>
+
+    <h3>A.2 原始作答与单样本判定明细</h3>
+    <table>
+        <caption>表 A2　12 位受访者 × 5 项需求的原始作答与单样本属性（R1 实时转写与说话人分离 · R2 结构化纪要自动生成 · R3 待办识别并同步协作工具 · R4 跨会议知识库检索与追问 · R5 多语言实时翻译与双语纪要）</caption>
+        <tr><th>受访者</th><th>R1（正／反 → 属性）</th><th>R2（正／反 → 属性）</th><th>R3（正／反 → 属性）</th><th>R4（正／反 → 属性）</th><th>R5（正／反 → 属性）</th></tr>
+        <tr><td><strong>P01</strong> 负责人</td><td class="num">应／厌 → <span class="tag tag-m">M</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／无 → <span class="tag tag-a">A</span></td><td class="num">应／无 → <span class="tag tag-i">I</span></td></tr>
+        <tr><td><strong>P02</strong> 负责人</td><td class="num">应／厌 → <span class="tag tag-m">M</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／应 → <span class="tag tag-a">A</span></td><td class="num">勉／无 → <span class="tag tag-i">I</span></td></tr>
+        <tr><td><strong>P03</strong> 负责人</td><td class="num">无／厌 → <span class="tag tag-m">M</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／勉 → <span class="tag tag-a">A</span></td><td class="num">无／应 → <span class="tag tag-i">I</span></td></tr>
+        <tr><td><strong>P04</strong> 负责人</td><td class="num">应／厌 → <span class="tag tag-m">M</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／无 → <span class="tag tag-a">A</span></td><td class="num">无／无 → <span class="tag tag-i">I</span></td></tr>
+        <tr><td><strong>P05</strong> 负责人</td><td class="num">勉／厌 → <span class="tag tag-m">M</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／应 → <span class="tag tag-a">A</span></td><td class="num">应／勉 → <span class="tag tag-i">I</span></td></tr>
+        <tr><td><strong>P06</strong> 负责人</td><td class="num">无／厌 → <span class="tag tag-m">M</span></td><td class="num">应／厌 → <span class="tag tag-m">M</span></td><td class="num">应／厌 → <span class="tag tag-m">M</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td></tr>
+        <tr><td><strong>P07</strong> 对齐者</td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／无 → <span class="tag tag-a">A</span></td><td class="num">喜／无 → <span class="tag tag-a">A</span></td><td class="num">无／无 → <span class="tag tag-i">I</span></td><td class="num">无／勉 → <span class="tag tag-i">I</span></td></tr>
+        <tr><td><strong>P08</strong> 对齐者</td><td class="num">勉／厌 → <span class="tag tag-m">M</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">勉／厌 → <span class="tag tag-m">M</span></td><td class="num">无／勉 → <span class="tag tag-i">I</span></td><td class="num">勉／厌 → <span class="tag tag-m">M</span></td></tr>
+        <tr><td><strong>P09</strong> 对齐者</td><td class="num">无／无 → <span class="tag tag-i">I</span></td><td class="num">勉／厌 → <span class="tag tag-m">M</span></td><td class="num">无／无 → <span class="tag tag-i">I</span></td><td class="num">喜／无 → <span class="tag tag-a">A</span></td><td class="num">无／应 → <span class="tag tag-i">I</span></td></tr>
+        <tr><td><strong>P10</strong> 对齐者</td><td class="num">应／勉 → <span class="tag tag-i">I</span></td><td class="num">无／无 → <span class="tag tag-i">I</span></td><td class="num">无／勉 → <span class="tag tag-i">I</span></td><td class="num">无／应 → <span class="tag tag-i">I</span></td><td class="num">勉／无 → <span class="tag tag-i">I</span></td></tr>
+        <tr><td><strong>P11</strong> 跨国团队</td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／应 → <span class="tag tag-a">A</span></td><td class="num">喜／应 → <span class="tag tag-a">A</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／无 → <span class="tag tag-a">A</span></td></tr>
+        <tr><td><strong>P12</strong> 跨国团队</td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／厌 → <span class="tag tag-o">O</span></td><td class="num">喜／勉 → <span class="tag tag-a">A</span></td><td class="num">喜／应 → <span class="tag tag-a">A</span></td><td class="num">喜／应 → <span class="tag tag-a">A</span></td></tr>
+    </table>
+    <p class="tbl-note">按表 2 评价矩阵交叉查表：正＝喜 × 反＝厌 → O；正＝喜 × 反＝应／无／勉 → A；正＝应／无／勉 × 反＝厌 → M；正反均为中性作答 → I。本样本中无 R（反向属性）与 Q（可疑）作答组合。</p>
+
+    <h3>A.3 汇总校验（与表 3 完全一致）</h3>
+    <table>
+        <caption>表 A3　单样本属性汇总与判定复核（n = 12）</caption>
+        <tr><th>需求</th><th class="num">A</th><th class="num">O</th><th class="num">M</th><th class="num">I</th><th>多数票判定</th><th class="num">Better = (A+O)/12</th><th class="num">|Worse| = (O+M)/12</th><th>与表 3 一致性</th></tr>
+        <tr><td><strong>R1</strong></td><td class="num">0</td><td class="num">3</td><td class="num">7</td><td class="num">2</td><td><span class="tag tag-m">必备 M</span></td><td class="num">3/12 = 0.25</td><td class="num">10/12 ≈ 0.83</td><td>✓ 一致</td></tr>
+        <tr><td><strong>R2</strong></td><td class="num">2</td><td class="num">7</td><td class="num">2</td><td class="num">1</td><td><span class="tag tag-o">期望 O</span></td><td class="num">9/12 = 0.75</td><td class="num">9/12 = 0.75</td><td>✓ 一致</td></tr>
+        <tr><td><strong>R3</strong></td><td class="num">3</td><td class="num">5</td><td class="num">2</td><td class="num">2</td><td><span class="tag tag-o">期望 O</span></td><td class="num">8/12 ≈ 0.67</td><td class="num">7/12 ≈ 0.58</td><td>✓ 一致</td></tr>
+        <tr><td><strong>R4</strong></td><td class="num">7</td><td class="num">2</td><td class="num">0</td><td class="num">3</td><td><span class="tag tag-a">魅力 A</span></td><td class="num">9/12 = 0.75</td><td class="num">2/12 ≈ 0.17</td><td>✓ 一致</td></tr>
+        <tr><td><strong>R5</strong></td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num">8</td><td><span class="tag tag-i">无差异 I</span></td><td class="num">3/12 = 0.25</td><td class="num">2/12 ≈ 0.17</td><td>✓ 一致</td></tr>
+    </table>
+    <div class="callout">
+        <span class="callout-label">作答合理性说明</span>
+        原始作答并非随机生成，而是按画像特征设计：负责人（P01–P06）把「转写可信」（R1）视为不可缺席的入场券（7 票 M 的主力），对「待办落地」（R3）多为期望属性；对齐者（P07–P10）依赖纪要补上下文，属性分布更分散；跨国团队（P11–P12）对多语言（R5）与跨会追问（R4）给出全样本中仅有的高分作答，但人数占比小（20%），不足以改变多数票判定——这正是 R5 被判为无差异、R4 被判为魅力的微观来源。
+    </div>
+</section>
+
+<!-- ==================== 参考资料 ==================== -->
+<section id="references" class="section">
+    <h2>参考资料</h2>
+    <p class="tbl-note">以下来源均于 2026 年 10 月检索；定价与规模类数据以官方页面当日显示为准，媒体报道类数据仅供量级参考。</p>
+    <ol class="ref-list">
+        <li id="cite-1">飞书妙记官方产品页：AI 智能纪要与待办自动提取、与飞书任务／文档的生态内联动．飞书官网 feishu.cn．</li>
+        <li id="cite-2">职场会议效率公开调研综合：83% 职场人曾因人工记录疏漏找不到任务负责人、42% 的会议行动项被完全遗忘．综合 2024–2025 年公开协作效率调研报告整理．</li>
+        <li id="cite-3">飞书妙记功能说明与实测反馈：19 种语言实时互译；方言与混合语种场景下准确率下降．飞书官网及用户公开评价整理（2025）．</li>
+        <li id="cite-4">会中提问与跨会议历史检索能力：Otter.ai「AI Chat」、飞书妙记「问答」官方功能页．otter.ai / feishu.cn（2025）．</li>
+        <li id="cite-5">行业基准数据：中文语音转写准确率约 93%、自动待办提取准确率约 72%．综合第三方评测与厂商公开资料整理（2024–2025）．</li>
+        <li id="cite-6">ASR 误差分布推算：97% 字准下 1500 词仍约 45 个错词，集中于人名、数字与专业术语．基于公开中文语音识别评测口径推算（2025）．</li>
+        <li id="cite-7">行动项遗漏的结构性归因：记录系统与执行系统分离、缺少负责人、无自动提醒机制．公开协作效率研究与用户访谈资料整理（2024–2025）．</li>
+        <li id="cite-8">企业协作实践公开案例：AI 抽取后增加「3 分钟人工复核并推送任务系统」收尾流程，行动项完成率 3 个月内 65% → 91%（2025）．</li>
+        <li id="cite-9">行业数据：会议行动项整体未完成率约 44%．公开会议效率调研资料整理（2024–2025）．</li>
+        <li id="cite-10">用户反馈主题归纳：AI 纪要初稿存在发言人混淆与决议遗漏，需人工校对．应用商店与官方社区公开评价整理（2025）．</li>
+        <li id="cite-11">飞书妙记定价页：个人版 69 元/月（划线价 95 元）、商业版／企业版分层；免费版 300 分钟/月、AI 智能纪要 2 篇/人、转写 300 分钟/月．feishu.cn（检索于 2026-10）．</li>
+        <li id="cite-12">飞书妙记额度与场景限制：免费额度超额后仅保留录音无文字；非飞书会议来源（腾讯会议等）仅剩文件转写能力．官方帮助中心与实测整理（2026）．</li>
+        <li id="cite-13">通义听悟定价与能力：新用户免费试用 90 天（实时记录每日 48 小时）；按量付费实时记录 10.5 元/小时、文件转写约 0.6 元/小时；会员约 30 元/月起（第三方渠道）；官方称中文转写准确率最高可达 98%．tingwu.aliyun.com（检索于 2026-10）．</li>
+        <li id="cite-14">Otter.ai 定价页：免费版单场 30 分钟、300 分钟/月转写；Pro $8.33 / Business $19.99 每人每月（年付价）；AI Chat 200 次/月；Enterprise 定制．otter.ai/pricing（检索于 2026-10）．</li>
+        <li id="cite-15">Otter.ai 经营数据：$100M+ ARR、3500 万+ 全球用户、累计处理 10 亿+ 场会议、General Catalyst 领投 3.2 亿美元增长投资．TechCrunch 等科技媒体报道（2025）．</li>
+        <li id="cite-16">QuestMobile 移动互联网数据：飞书月活约 3000 万，居协同办公行业第三（2026）．</li>
+        <li id="cite-17">飞书 2025 年营收超 30 亿元、付费转化率居行业前列．36氪／晚点 LatePost 等媒体报道（2025–2026）．</li>
+    </ol>
+</section>
+
+</div>
+<a href="index.html" title="返回作品集首页" style="position:fixed;right:20px;bottom:20px;z-index:2147483647;display:inline-flex;align-items:center;background:rgba(17,24,39,.9);color:#fff;padding:10px 17px;border-radius:999px;font-size:13px;line-height:1;text-decoration:none;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Microsoft YaHei,sans-serif;box-shadow:0 6px 20px rgba(0,0,0,.24)">&#8592; 返回作品集</a>
+</body>
+</html>
