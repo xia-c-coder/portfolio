@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>于嘉乐 · 产品经理作品集</title>
-<meta name="description" content="于嘉乐的产品经理作品集：AI 会议纪要工具产品分析、AI 自习室产品设计。涵盖 KANO 需求模型、用户画像、HMW 优化方案与竞品五层分析。">
+<meta name="description" content="于嘉乐的产品经理作品集：AI 会议纪要工具产品分析，涵盖 KANO 需求模型、用户画像、HMW 优化方案与竞品五层分析。">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101214'/%3E%3Cpath d='M9 9l7 8 7-8' stroke='%23fff' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 17v7' stroke='%23fff' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
     :root{
@@ -17,7 +17,6 @@
         --line-2:#EDEDEA;
         --hero:#101214;
         --blue:#2563EB;
-        --pine:#234B3D;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
@@ -115,7 +114,7 @@
         letter-spacing:.08em;
     }
 
-    .works{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .works{display:grid;grid-template-columns:minmax(0,620px);gap:24px;justify-content:center}
     .work{
         display:flex;
         flex-direction:column;
@@ -137,7 +136,6 @@
         transition:transform .3s ease;
     }
     .work.blue::before{background:var(--blue)}
-    .work.pine::before{background:var(--pine)}
     .work:hover{
         transform:translateY(-4px);
         border-color:#D6D6D2;
@@ -204,7 +202,6 @@
         gap:6px;
     }
     .work.blue .go{color:var(--blue)}
-    .work.pine .go{color:var(--pine)}
     .go .arrow{transition:transform .22s ease}
     .work:hover .go .arrow{transform:translateX(4px)}
 
@@ -255,7 +252,7 @@
         <p class="eyebrow">Portfolio · 产品经理作品集</p>
         <h1>于嘉乐</h1>
         <p class="role">求职意向：产品经理实习生 · AI 产品方向</p>
-        <p class="intro">用 KANO 模型判断哪些需求决定满意、哪些需求决定不流失，用用户画像与核心链路定位真实问题，用 HMW 把结论变成可落地的动作，再用五层模型把竞品拆到战略层与表现层——下面两份作品，完整走完了这条链路。</p>
+        <p class="intro">用 KANO 模型判断哪些需求决定满意、哪些需求决定不流失，用用户画像与核心链路定位真实问题，用 HMW 把结论变成可落地的动作，再用五层模型把竞品拆到战略层与表现层——下面这份作品，完整走完了这条链路。</p>
         <ul class="contact">
             <li><a href="mailto:zuqiu2023@qq.com">zuqiu2023@qq.com</a></li>
             <li><a href="tel:17377799835">173 7779 9835</a></li>
@@ -266,7 +263,7 @@
 <main>
     <div class="section-head">
         <h2>作品</h2>
-        <span class="count">02 WORKS</span>
+        <span class="count">01 WORK</span>
     </div>
 
     <div class="works">
@@ -288,23 +285,6 @@
             <span class="go">查看作品 <span class="arrow">→</span></span>
         </a>
 
-        <a class="work pine" href="ai-study-room.html">
-            <div class="work-top">
-                <span class="idx">02</span>
-                <span class="cat">产品设计 · 用户研究</span>
-            </div>
-            <h3>AI 自习室｜产品设计作品集</h3>
-            <p class="desc">从「为什么是这个方向」出发，收集 5 个真实用户需求；由 10 个 Agent 用户独立完成 KANO 正反向打分并生成用户画像，据此排定属性优先级与分级开发策略；再以 HMW 发散收敛出 4 个可落地优化方案，配合竞品五层模型拆解与定性 + 定量用户研究，最终收口到策略制定与迭代路径。</p>
-            <ul class="tags">
-                <li>需求洞察</li>
-                <li>KANO 评分</li>
-                <li>HMW 优化</li>
-                <li>竞品五层拆解</li>
-                <li>用户研究</li>
-            </ul>
-            <span class="go">查看作品 <span class="arrow">→</span></span>
-        </a>
-
     </div>
 </main>
 
@@ -317,7 +297,7 @@
             <a href="tel:17377799835">173 7779 9835</a>
         </span>
     </div>
-    <p class="foot-note">本页为个人作品集。两份作品中的问卷与用户打分数据，均为按真实调研流程生成的模拟样本，用于完整演示需求判定、优先级排序与竞品拆解的方法；文中涉及的竞品定价与经营数据来自公开资料，检索时点为 2026 年 10 月。</p>
+    <p class="foot-note">本页为个人作品集。作品中的问卷与用户打分数据，均为按真实调研流程生成的模拟样本，用于完整演示需求判定、优先级排序与竞品拆解的方法；文中涉及的竞品定价与经营数据来自公开资料，检索时点为 2026 年 10 月。</p>
 </footer>
 
 </body>
